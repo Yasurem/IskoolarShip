@@ -1,0 +1,18 @@
+{
+  "expo": {
+    "name": "IskoolarShip",
+    "slug": "iskoolarship",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "iskoolarship",
+    "userInterfaceStyle": "light",
+    "platforms": ["android", "ios", "web"],
+    "android": {
+      "package": "com.iskoolarship.mobile",
+      "edgeToEdgeEnabled": true
+    },
+    "extra": {
+      "privacyModel": "student-data-stays-on-device"
+    }
+  }
+}
