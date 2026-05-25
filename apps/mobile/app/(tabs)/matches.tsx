@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Image, ActivityIndicator, LayoutAnimation, Platform, UIManager } from 'react-native';
+
+if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 import { MaterialIcons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useProfile } from '../../src/context/ProfileContext';
@@ -10,6 +14,7 @@ import { filterScholarships, compatibilityScoring, optimizeApplication } from '@
 type CardProps = {
   scholarship: Scholarship;
   matchScore: number;
+  catalog: CatalogResponse | null;
 };
 
 // Helper icon picker
@@ -25,41 +30,147 @@ const formatMoney = (amount: number) => {
   return new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP' }).format(amount);
 };
 
-const ScholarshipCard = ({ scholarship, matchScore }: CardProps) => (
-  <TouchableOpacity style={styles.card} activeOpacity={0.7}>
-    <View style={styles.cardHeader}>
-      <View style={styles.cardHeaderLeft}>
+const ScholarshipCard = ({ scholarship, matchScore, catalog }: CardProps) => {
+  const { profile, toggleTrack } = useProfile();
+  const [isExpanded, setIsExpanded] = useState(false);
 
-        {/* Provider Icon */}
-        <View style={styles.iconContainer}>
-          <MaterialIcons name={getProviderIcon(scholarship.providerType)} size={24} color="#570000" />
-        </View>
+  const handlePress = () => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setIsExpanded(!isExpanded);
+  };
 
-        {/* Scholarship Name and Provider Type */}
-        <View style={{ flex: 1, paddingRight: 8 }}>
-          <Text style={styles.cardTitle}>{scholarship.name}</Text>
+  const isTracked = profile?.trackedIds?.includes(scholarship.id) || false;
 
-          {/* TODO: Provider Type Text */}
-          <View style={styles.badge}>
-            <Text style={styles.badgeText}>{scholarship.providerType.charAt(0).toUpperCase() + scholarship.providerType.slice(1)}</Text>
+  return (
+    <TouchableOpacity style={styles.card} activeOpacity={0.7} onPress={handlePress}>
+      <View style={styles.cardHeader}>
+        <View style={styles.cardHeaderLeft}>
+
+          {/* Provider Icon */}
+          <View style={styles.iconContainer}>
+            <MaterialIcons name={getProviderIcon(scholarship.providerType)} size={24} color="#570000" />
+          </View>
+
+          {/* Scholarship Name and Provider Type */}
+          <View style={{ flex: 1, paddingRight: 8 }}>
+            <Text style={styles.cardTitle}>{scholarship.name}</Text>
+
+            <View style={styles.badge}>
+              <Text style={styles.badgeText}>{scholarship.providerType.charAt(0).toUpperCase() + scholarship.providerType.slice(1)}</Text>
+            </View>
           </View>
         </View>
+
+        {/* Match Score Badge */}
+        <View style={styles.matchBadge}>
+          <MaterialIcons name="verified" size={16} color="#5a4300" />
+          <Text style={styles.matchText}>{matchScore}% Match</Text>
+        </View>
       </View>
 
-      {/* Match Score Badge */}
-      <View style={styles.matchBadge}>
-        <MaterialIcons name="verified" size={16} color="#5a4300" />
-        <Text style={styles.matchText}>{matchScore}% Match</Text>
-      </View>
-    </View>
+      {/* Unexpanded Footer */}
+      {!isExpanded && (
+        <View style={styles.cardFooter}>
+          <Text style={styles.footerLabel}>Estimated Grant Value</Text>
+          <Text style={styles.footerAmount}>{formatMoney(scholarship.estimatedTotalValuePhp)}</Text>
+        </View>
+      )}
 
-    {/* Scholarship Description */}
-    <View style={styles.cardFooter}>
-      <Text style={styles.footerLabel}>Estimated Grant Value</Text>
-      <Text style={styles.footerAmount}>{formatMoney(scholarship.estimatedTotalValuePhp)}</Text>
-    </View>
-  </TouchableOpacity>
-);
+      {/* Expanded Content */}
+      {isExpanded && (
+        <View style={styles.expandedContent}>
+          {/* Key Figures */}
+          <View style={styles.keyFiguresGrid}>
+            <View style={styles.figureBox}>
+              <MaterialIcons name="payments" size={24} color="#570000" />
+              <Text style={styles.figureLabel}>AMOUNT</Text>
+              <Text style={styles.figureValue}>{formatMoney(scholarship.estimatedTotalValuePhp)}</Text>
+            </View>
+            <View style={styles.figureBox}>
+              <MaterialIcons name="history" size={24} color="#570000" />
+              <Text style={styles.figureLabel}>EST. EFFORT</Text>
+              <Text style={styles.figureValue}>{scholarship.estimatedEffortHours} hrs</Text>
+            </View>
+          </View>
+
+          {/* Description */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}><MaterialIcons name="info" size={20} /> Description</Text>
+            <Text style={styles.bodyText}>{scholarship.description || "No description provided."}</Text>
+          </View>
+
+          {/* Eligibility */}
+          <View style={styles.sectionBg}>
+            <Text style={styles.sectionTitle}>Eligibility Requirements</Text>
+            {scholarship.minGpa && (
+              <View style={styles.listItem}>
+                <MaterialIcons name="check-circle" size={20} color="#fdc425" />
+                <Text style={styles.bodyText}>GPA of at least {scholarship.minGpa}</Text>
+              </View>
+            )}
+            {scholarship.allowedStrands && !scholarship.allowedStrands.includes('All') && (
+              <View style={styles.listItem}>
+                <MaterialIcons name="check-circle" size={20} color="#fdc425" />
+                <Text style={styles.bodyText}>Strand: {scholarship.allowedStrands.join(', ')}</Text>
+              </View>
+            )}
+          </View>
+
+          {/* Required Documents */}
+          {catalog && (
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Required Documents</Text>
+              <View style={styles.docsContainer}>
+                {catalog.scholarshipRequiredDocuments
+                  .filter(d => d.scholarshipId === scholarship.id)
+                  .map(req => {
+                    const doc = catalog.documents.find(d => d.id === req.documentId);
+                    if (!doc) return null;
+                    
+                    const userHasIt = profile?.documents ? profile.documents[doc.key as keyof typeof profile.documents] : false;
+                    
+                    return (
+                      <View key={req.documentId} style={styles.docRow}>
+                        <Text style={styles.bodyText}>{doc.name}</Text>
+                        {userHasIt ? (
+                          <View style={styles.badgeSuccess}>
+                            <MaterialIcons name="cloud-done" size={14} color="#6d5200" />
+                            <Text style={styles.badgeSuccessText}>UPLOADED</Text>
+                          </View>
+                        ) : (
+                          <View style={styles.badgeError}>
+                            <MaterialIcons name="error" size={14} color="#93000a" />
+                            <Text style={styles.badgeErrorText}>MISSING</Text>
+                          </View>
+                        )}
+                      </View>
+                    );
+                  })}
+              </View>
+            </View>
+          )}
+
+          {/* CTAs */}
+          <View style={styles.ctaContainer}>
+            <TouchableOpacity style={styles.primaryButton}>
+              <Text style={styles.primaryButtonText}>Start Application</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity 
+              style={[styles.secondaryButton, isTracked && styles.trackedButton]}
+              onPress={() => toggleTrack(scholarship.id)}
+            >
+              <MaterialIcons name={isTracked ? "bookmark" : "bookmark-border"} size={20} color={isTracked ? "#ffffff" : "#570000"} />
+              <Text style={[styles.secondaryButtonText, isTracked && styles.trackedButtonText]}>
+                {isTracked ? "Remove from Tracklist" : "Add to Tracker"}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}
+    </TouchableOpacity>
+  );
+};
 
 // Algorithm Routing
 export default function MatchesScreen() {
@@ -185,6 +296,7 @@ export default function MatchesScreen() {
                 key={result.scholarship.id}
                 scholarship={result.scholarship} 
                 matchScore={result.score} 
+                catalog={catalog}
               />
             ))}
           </View>
@@ -346,5 +458,146 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     color: '#570000',
+  },
+  expandedContent: {
+    borderTopWidth: 1,
+    borderTopColor: '#E2E8F0',
+    paddingTop: 16,
+    marginTop: 8,
+  },
+  keyFiguresGrid: {
+    flexDirection: 'row',
+    gap: 12,
+    marginBottom: 16,
+  },
+  figureBox: {
+    flex: 1,
+    backgroundColor: '#eff4ff',
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#e2bfb9',
+  },
+  figureLabel: {
+    fontSize: 10,
+    fontWeight: '600',
+    color: '#5a413d',
+    marginTop: 8,
+    marginBottom: 4,
+  },
+  figureValue: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#570000',
+  },
+  section: {
+    marginBottom: 16,
+  },
+  sectionBg: {
+    backgroundColor: '#eff4ff',
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: '#e2bfb9',
+  },
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#570000',
+    marginBottom: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  bodyText: {
+    fontSize: 14,
+    color: '#0b1c30',
+    lineHeight: 20,
+  },
+  listItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 8,
+  },
+  docsContainer: {
+    backgroundColor: '#f8f9ff',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#e2bfb9',
+    overflow: 'hidden',
+  },
+  docRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e2bfb9',
+  },
+  badgeSuccess: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fdc425',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
+    gap: 4,
+  },
+  badgeSuccessText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: '#6d5200',
+  },
+  badgeError: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#ffdad6',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
+    gap: 4,
+  },
+  badgeErrorText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: '#93000a',
+  },
+  ctaContainer: {
+    gap: 12,
+    marginTop: 8,
+  },
+  primaryButton: {
+    backgroundColor: '#570000',
+    padding: 16,
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+  primaryButtonText: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  secondaryButton: {
+    flexDirection: 'row',
+    borderWidth: 2,
+    borderColor: '#570000',
+    padding: 16,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+  },
+  secondaryButtonText: {
+    color: '#570000',
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  trackedButton: {
+    backgroundColor: '#570000',
+  },
+  trackedButtonText: {
+    color: '#ffffff',
   },
 });

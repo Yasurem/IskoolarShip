@@ -12,6 +12,7 @@ export type ProfileData = {
     itr: boolean;
     gmrc: boolean;
   };
+  trackedIds?: string[];
 };
 
 type ProfileContextType = {
@@ -20,6 +21,7 @@ type ProfileContextType = {
   profile: ProfileData | null;
   completeOnboarding: (data: ProfileData) => Promise<void>;
   resetProfile: () => Promise<void>;
+  toggleTrack: (scholarshipId: string) => Promise<void>;
 };
 
 const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
@@ -66,8 +68,29 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const toggleTrack = async (scholarshipId: string) => {
+    if (!profile) return;
+    try {
+      const currentTracked = profile.trackedIds || [];
+      const isTracked = currentTracked.includes(scholarshipId);
+      
+      let newTracked: string[];
+      if (isTracked) {
+        newTracked = currentTracked.filter(id => id !== scholarshipId);
+      } else {
+        newTracked = [...currentTracked, scholarshipId];
+      }
+
+      const updatedProfile = { ...profile, trackedIds: newTracked };
+      await AsyncStorage.setItem('@iskoolarship_profile', JSON.stringify(updatedProfile));
+      setProfile(updatedProfile);
+    } catch (e) {
+      console.error('Failed to toggle track', e);
+    }
+  };
+
   return (
-    <ProfileContext.Provider value={{ hasOnboarded, isLoading, profile, completeOnboarding, resetProfile }}>
+    <ProfileContext.Provider value={{ hasOnboarded, isLoading, profile, completeOnboarding, resetProfile, toggleTrack }}>
       {children}
     </ProfileContext.Provider>
   );
