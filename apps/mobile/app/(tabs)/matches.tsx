@@ -29,23 +29,33 @@ const ScholarshipCard = ({ scholarship, matchScore }: CardProps) => (
   <TouchableOpacity style={styles.card} activeOpacity={0.7}>
     <View style={styles.cardHeader}>
       <View style={styles.cardHeaderLeft}>
+
+        {/* Provider Icon */}
         <View style={styles.iconContainer}>
           <MaterialIcons name={getProviderIcon(scholarship.providerType)} size={24} color="#570000" />
         </View>
+
+        {/* Scholarship Name and Provider Type */}
         <View style={{ flex: 1, paddingRight: 8 }}>
           <Text style={styles.cardTitle}>{scholarship.name}</Text>
+
+          {/* TODO: Provider Type Text */}
           <View style={styles.badge}>
             <Text style={styles.badgeText}>{scholarship.providerType.charAt(0).toUpperCase() + scholarship.providerType.slice(1)}</Text>
           </View>
         </View>
       </View>
+
+      {/* Match Score Badge */}
       <View style={styles.matchBadge}>
         <MaterialIcons name="verified" size={16} color="#5a4300" />
         <Text style={styles.matchText}>{matchScore}% Match</Text>
       </View>
     </View>
+
+    {/* Scholarship Description */}
     <View style={styles.cardFooter}>
-      <Text style={styles.footerLabel}>Estimated Value</Text>
+      <Text style={styles.footerLabel}>Estimated Grant Value</Text>
       <Text style={styles.footerAmount}>{formatMoney(scholarship.estimatedTotalValuePhp)}</Text>
     </View>
   </TouchableOpacity>

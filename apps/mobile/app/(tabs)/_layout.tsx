@@ -4,6 +4,8 @@ import { useProfile } from '../../src/context/ProfileContext';
 import { useEffect } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 
+// Bottom Tab Bar Layout for the app.
+// Navigation Guard
 export default function TabLayout() {
   const { hasOnboarded, isLoading } = useProfile();
   const router = useRouter();
