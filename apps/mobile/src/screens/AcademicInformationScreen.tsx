@@ -11,6 +11,8 @@ interface AcademicInformationScreenProps {
   setStrand: (v: string) => void;
 }
 
+// Dictionary mapping the DB safe string to a clean UI display label
+// Reference: ../packages/types/src/index.ts
 const STRAND_DISPLAY_MAP: Record<Strand, string> = {
   All: 'All Strands',
   STEM: 'STEM',
@@ -23,6 +25,7 @@ const STRAND_DISPLAY_MAP: Record<Strand, string> = {
   NotApplicable: 'Not Applicable',
 };
 
+// Dropdown: Get the list of UI options (excluding system keys like "All")
 const DB_STRANDS = STRANDS.filter(s => s !== 'All');
 const DISPLAY_OPTIONS = DB_STRANDS.map(s => STRAND_DISPLAY_MAP[s]);
 

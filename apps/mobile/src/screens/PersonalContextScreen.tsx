@@ -2,6 +2,9 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { CustomDropdown } from '../components/CustomDropdown';
 
+import { REGIONS } from '@iskoolarship/types';
+import type { Region } from '@iskoolarship/types';
+
 interface PersonalContextScreenProps {
   region: string;
   setRegion: (v: string) => void;
@@ -9,7 +12,32 @@ interface PersonalContextScreenProps {
   setIncome: (v: string) => void;
 }
 
-const REGIONS = ['NCR', 'CAR', 'Region I', 'Region III', 'Region IV-A', 'Region VII', 'Region XI'];
+// Dropdown: Display Mapping for Regions
+const REGION_DISPLAY_MAP: Record<Region, string> = {
+  All: "All Regions",
+  NCR: "NCR",
+  CAR: "CAR",
+  RegionI: "Region I",
+  RegionII: "Region II",
+  RegionIII: "Region III",
+  RegionIVA: "Region IV-A",
+  MIMAROPA: "MIMAROPA",
+  RegionV: "Region V",
+  RegionVI: "Region VI",
+  RegionVII: "Region VII",
+  RegionVIII: "Region VIII",
+  RegionIX: "Region IX",
+  RegionX: "Region X",
+  RegionXI: "Region XI",
+  RegionXII: "Region XII",
+  RegionXIII: "Region XIII",
+  BARMM: "BARMM"
+};
+
+// Get the list of UI options (excluding system keys like "All")
+const DB_REGIONS = REGIONS.filter(r => r !== 'All');
+const DISPLAY_OPTIONS = DB_REGIONS.map(r => REGION_DISPLAY_MAP[r]);
+
 const INCOMES = ['Below ₱130k', '₱130k - ₱250k', '₱250k - ₱500k', '₱500k - ₱1M', 'Above ₱1M'];
 
 export default function PersonalContextScreen({ region, setRegion, income, setIncome }: PersonalContextScreenProps) {
@@ -20,10 +48,18 @@ export default function PersonalContextScreen({ region, setRegion, income, setIn
       <View style={styles.inputGroup}>
         <Text style={styles.label}>Home Region</Text>
         <CustomDropdown 
-          value={region} 
-          options={REGIONS} 
-          onSelect={setRegion} 
-          placeholder="Select Region" 
+          // Display the user-friendly label for the current value
+          value={REGION_DISPLAY_MAP[region as Region] || region} 
+          options={DISPLAY_OPTIONS} 
+          onSelect={(selectedLabel) => {
+
+            // Find the corresponding database key for the selected label
+            const dbValue = DB_REGIONS.find(r => REGION_DISPLAY_MAP[r] === selectedLabel);
+            if (dbValue) {
+              setRegion(dbValue);
+            }
+          }} 
+          placeholder="Select region" 
         />
       </View>
 
