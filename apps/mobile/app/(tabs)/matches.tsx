@@ -61,6 +61,7 @@ const ScholarshipCard = ({ scholarship, matchScore }: CardProps) => (
   </TouchableOpacity>
 );
 
+// Algorithm Routing
 export default function MatchesScreen() {
   const insets = useSafeAreaInsets();
   const { profile } = useProfile();
@@ -139,6 +140,8 @@ export default function MatchesScreen() {
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
       {/* Header */}
+
+      {/* Header Avatar and Icons */}
       <View style={styles.header}>
         <View style={styles.headerLeft}>
           <Image 
@@ -152,12 +155,14 @@ export default function MatchesScreen() {
         </TouchableOpacity>
       </View>
 
+      {/* Header Text */}
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.titleSection}>
           <Text style={styles.pageTitle}>Scholarship Matches</Text>
           <Text style={styles.pageSubtitle}>Personalized recommendations calculated locally on your device.</Text>
         </View>
 
+        {/* Status Messages */}
         {loading ? (
           <View style={styles.centerContainer}>
             <ActivityIndicator size="large" color="#570000" />
