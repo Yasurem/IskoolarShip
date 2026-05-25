@@ -77,9 +77,14 @@ export default function MatchesScreen() {
 
         // 2. Map ProfileData (from onboarding) to StudentProfile (for algorithm)
         // We use some default placeholders ("Any", "All") for fields the onboarding wizard didn't collect yet.
-        const availableDocs = Object.entries(profile.documents)
+        const availableDocKeys = Object.entries(profile.documents)
           .filter(([_, hasIt]) => hasIt)
           .map(([key, _]) => key);
+
+        // MAP: The frontend has "psa" but the database has UUIDs. We must map them!
+        const availableDocIds = fetchedCatalog.documents
+          .filter(d => availableDocKeys.includes(d.key))
+          .map(d => d.id);
 
         const studentProfile: StudentProfile = {
           gpa: parseFloat(profile.gpa) || 2.0,
@@ -89,8 +94,8 @@ export default function MatchesScreen() {
           gender: "Any",
           targetCourse: "All",
           yearLevel: "All",
-          availableHours: 20,
-          availableDocumentKeys: availableDocs
+          availableHours: 40,
+          availableDocumentKeys: availableDocIds
         };
 
         // 3. Algorithm Step 1: Strict Filtering
