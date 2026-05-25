@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useProfile } from '../context/ProfileContext';
 import AcademicInformationScreen from './AcademicInformationScreen';
@@ -8,8 +8,22 @@ import DocumentReadinessScreen from './DocumentReadinessScreen';
 
 export default function Template() {
   const router = useRouter();
-  const { completeOnboarding } = useProfile();
+  const { completeOnboarding, hasOnboarded, isLoading } = useProfile();
   const [step, setStep] = useState(1);
+
+  useEffect(() => {
+    if (!isLoading && hasOnboarded) {
+      router.replace('/(tabs)/matches');
+    }
+  }, [hasOnboarded, isLoading]);
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F8FAFC' }}>
+        <ActivityIndicator size="large" color="#800000" />
+      </View>
+    );
+  }
   
   const [documents, setDocuments] = useState({
     psa: false,
