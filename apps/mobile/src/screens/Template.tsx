@@ -37,8 +37,9 @@ export default function Template() {
   if (step === 2) canProceed = isPersonalComplete;
 
   return (
-    
+    // Main
     <ScrollView contentContainerStyle={styles.container}>
+
       {/* Header and Image */}
       <View style={styles.header}>
         <View style={styles.headerLeft}>
@@ -72,7 +73,7 @@ export default function Template() {
       </View>
 
       {/* Render Screens */}
-      {/* Ref: ../apps/mobile/src/screens/ */}
+      {/* File Ref: ../apps/mobile/src/screens/ */}
       {step === 1 && (
         <AcademicInformationScreen 
           gpa={gpa} setGpa={setGpa} strand={strand} setStrand={setStrand} 
