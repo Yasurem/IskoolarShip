@@ -27,6 +27,7 @@ export default function Template() {
   });
 
   const [nickname, setNickname] = useState('');
+  const [gender, setGender] = useState('');
   const [gpa, setGpa] = useState('');
   const [strand, setStrand] = useState('');
   const [region, setRegion] = useState('');
@@ -37,7 +38,7 @@ export default function Template() {
   };
 
   // Calculate progress
-  const isNicknameComplete = nickname.trim() !== '';
+  const isNicknameComplete = nickname.trim().length >= 2 && gender !== '';
   const isAcademicComplete = gpa.trim() !== '' && strand !== '';
   const isPersonalComplete = region !== '' && income !== '';
   const isDocsComplete = Object.values(documents).some(val => val === true);
@@ -97,6 +98,7 @@ export default function Template() {
       {step === 1 && (
         <NicknameScreen 
           nickname={nickname} setNickname={setNickname} 
+          gender={gender} setGender={setGender} 
         />
       )}
       
@@ -147,7 +149,7 @@ export default function Template() {
             style={styles.submitButton} 
             activeOpacity={0.8}
             onPress={async () => {
-              await completeOnboarding({ nickname, gpa, strand, region, income, documents });
+              await completeOnboarding({ nickname, gender, gpa, strand, region, income, documents });
               router.replace('/(tabs)/matches');
             }}
           >

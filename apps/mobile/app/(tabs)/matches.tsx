@@ -220,7 +220,7 @@ export default function MatchesScreen() {
           strand: (profile.strand as Strand) || "All",
           region: (profile.region as Region) || "All",
           incomeBracket: (parseInt(profile.income) as IncomeBracket) || 3,
-          gender: "Any",
+          gender: (profile.gender as Gender) || "Any",
           targetCourse: "All",
           yearLevel: "All",
           availableHours: 40,

@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export type ProfileData = {
   nickname: string;
+  gender: string;
   gpa: string;
   strand: string;
   region: string;

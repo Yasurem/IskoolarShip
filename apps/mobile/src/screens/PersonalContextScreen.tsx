@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { CustomDropdown } from '../components/CustomDropdown';
 
-import { REGIONS } from '@iskoolarship/types';
+import { REGIONS, REGION_DISPLAY_MAP, INCOME_DISPLAY_MAP } from '@iskoolarship/types';
 import type { Region, IncomeBracket } from '@iskoolarship/types';
 
 interface PersonalContextScreenProps {
@@ -11,37 +11,6 @@ interface PersonalContextScreenProps {
   income: string;
   setIncome: (v: string) => void;
 }
-
-// Dropdown: Display Mapping for Regions
-const REGION_DISPLAY_MAP: Record<Region, string> = {
-  All: "All Regions",
-  NCR: "NCR",
-  CAR: "CAR",
-  RegionI: "Region I",
-  RegionII: "Region II",
-  RegionIII: "Region III",
-  RegionIVA: "Region IV-A",
-  MIMAROPA: "MIMAROPA",
-  RegionV: "Region V",
-  RegionVI: "Region VI",
-  RegionVII: "Region VII",
-  RegionVIII: "Region VIII",
-  RegionIX: "Region IX",
-  RegionX: "Region X",
-  RegionXI: "Region XI",
-  RegionXII: "Region XII",
-  RegionXIII: "Region XIII",
-  BARMM: "BARMM"
-};
-
-// Dropdown: Display Mapping for Income Brackets
-const INCOME_DISPLAY_MAP: Record<IncomeBracket, string> = {
-  1: 'Below ₱130k',
-  2: '₱130k - ₱250k',
-  3: '₱250k - ₱500k',
-  4: '₱500k - ₱1M',
-  5: 'Above ₱1M',
-};
 
 // Get the list of UI options (excluding system keys like "All")
 const DB_REGIONS = REGIONS.filter(r => r !== 'All');

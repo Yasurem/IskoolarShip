@@ -3,35 +3,8 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, ActivityIn
 import { MaterialIcons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useProfile } from '../../src/context/ProfileContext';
-
-const REGION_DISPLAY_MAP: Record<string, string> = {
-  All: "All Regions",
-  NCR: "NCR",
-  CAR: "CAR",
-  RegionI: "Region I",
-  RegionII: "Region II",
-  RegionIII: "Region III",
-  RegionIVA: "Region IV-A",
-  MIMAROPA: "MIMAROPA",
-  RegionV: "Region V",
-  RegionVI: "Region VI",
-  RegionVII: "Region VII",
-  RegionVIII: "Region VIII",
-  RegionIX: "Region IX",
-  RegionX: "Region X",
-  RegionXI: "Region XI",
-  RegionXII: "Region XII",
-  RegionXIII: "Region XIII",
-  BARMM: "BARMM"
-};
-
-const INCOME_DISPLAY_MAP: Record<string, string> = {
-  '1': 'Below ₱130k',
-  '2': '₱130k - ₱250k',
-  '3': '₱250k - ₱500k',
-  '4': '₱500k - ₱1M',
-  '5': 'Above ₱1M',
-};
+import { REGION_DISPLAY_MAP, INCOME_DISPLAY_MAP } from '@iskoolarship/types';
+import type { Region, IncomeBracket } from '@iskoolarship/types';
 
 export default function ProfileScreen() {
   const insets = useSafeAreaInsets();
@@ -88,10 +61,18 @@ export default function ProfileScreen() {
           </View>
 
           <View style={styles.infoRow}>
+            <MaterialIcons name="wc" size={20} color="#570000" />
+            <View style={styles.infoContent}>
+              <Text style={styles.label}>Gender</Text>
+              <Text style={styles.value}>{profile.gender === 'Any' ? 'Prefer not to say' : profile.gender}</Text>
+            </View>
+          </View>
+
+          <View style={styles.infoRow}>
             <MaterialIcons name="place" size={20} color="#570000" />
             <View style={styles.infoContent}>
               <Text style={styles.label}>Home Region</Text>
-              <Text style={styles.value}>{REGION_DISPLAY_MAP[profile.region] || profile.region}</Text>
+              <Text style={styles.value}>{REGION_DISPLAY_MAP[profile.region as Region] || profile.region}</Text>
             </View>
           </View>
 
@@ -99,7 +80,7 @@ export default function ProfileScreen() {
             <MaterialIcons name="payments" size={20} color="#570000" />
             <View style={styles.infoContent}>
               <Text style={styles.label}>Annual Household Income</Text>
-              <Text style={styles.value}>{INCOME_DISPLAY_MAP[profile.income] || profile.income}</Text>
+              <Text style={styles.value}>{INCOME_DISPLAY_MAP[parseInt(profile.income) as IncomeBracket] || profile.income}</Text>
             </View>
           </View>
         </View>

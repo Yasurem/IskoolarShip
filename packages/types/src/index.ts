@@ -152,3 +152,33 @@ export type StudentProfile = {
   availableHours: number;
   availableDocumentKeys: readonly string[];
 };
+
+// DISPLAY MAPS
+export const REGION_DISPLAY_MAP: Record<Region, string> = {
+  All: "All Regions",
+  NCR: "NCR",
+  CAR: "CAR",
+  RegionI: "Region I",
+  RegionII: "Region II",
+  RegionIII: "Region III",
+  RegionIVA: "Region IV-A",
+  MIMAROPA: "MIMAROPA",
+  RegionV: "Region V",
+  RegionVI: "Region VI",
+  RegionVII: "Region VII",
+  RegionVIII: "Region VIII",
+  RegionIX: "Region IX",
+  RegionX: "Region X",
+  RegionXI: "Region XI",
+  RegionXII: "Region XII",
+  RegionXIII: "Region XIII",
+  BARMM: "BARMM"
+};
+
+export const INCOME_DISPLAY_MAP: Record<IncomeBracket, string> = {
+  1: 'Below ₱130k',
+  2: '₱130k - ₱250k',
+  3: '₱250k - ₱500k',
+  4: '₱500k - ₱1M',
+  5: 'Above ₱1M',
+};
