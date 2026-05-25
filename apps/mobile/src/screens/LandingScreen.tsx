@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useRouter } from 'expo-router';
+import { useProfile } from '../context/ProfileContext';
 import AcademicInformationScreen from './AcademicInformationScreen';
 import PersonalContextScreen from './PersonalContextScreen';
 import DocumentReadinessScreen from './DocumentReadinessScreen';
 
 export default function LandingScreen() {
   const router = useRouter();
+  const { completeOnboarding } = useProfile();
   const [step, setStep] = useState(1);
   
   const [documents, setDocuments] = useState({
@@ -30,12 +32,9 @@ export default function LandingScreen() {
   const isPersonalComplete = region !== '' && income !== '';
   const isDocsComplete = Object.values(documents).some(val => val === true);
 
-  let completedSections = 0;
-  if (isAcademicComplete) completedSections++;
-  if (isPersonalComplete) completedSections++;
-  if (isDocsComplete) completedSections++;
-
-  const progressPercentage = Math.round((completedSections / 3) * 100);
+  let canProceed = false;
+  if (step === 1) canProceed = isAcademicComplete;
+  if (step === 2) canProceed = isPersonalComplete;
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -57,10 +56,12 @@ export default function LandingScreen() {
         
         <View style={styles.progressHeader}>
           <Text style={styles.progressLabel}>Setup Progress</Text>
-          <Text style={styles.progressValue}>{progressPercentage}%</Text>
+          <Text style={styles.progressValue}>Step {step} of 3</Text>
         </View>
-        <View style={styles.progressTrack}>
-          <View style={[styles.progressFill, { width: `${progressPercentage}%` }]} />
+        <View style={styles.progressBarContainer}>
+          <View style={[styles.progressSegment, isAcademicComplete ? styles.progressSegmentActive : null]} />
+          <View style={[styles.progressSegment, isPersonalComplete ? styles.progressSegmentActive : null]} />
+          <View style={[styles.progressSegment, isDocsComplete || step === 3 ? styles.progressSegmentActive : null]} />
         </View>
       </View>
 
@@ -97,9 +98,10 @@ export default function LandingScreen() {
 
         {step < 3 ? (
           <TouchableOpacity 
-            style={styles.nextButton} 
+            style={[styles.nextButton, !canProceed && styles.disabledButton]} 
             activeOpacity={0.8}
             onPress={() => setStep(step + 1)}
+            disabled={!canProceed}
           >
             <Text style={styles.nextButtonText}>Next</Text>
           </TouchableOpacity>
@@ -107,7 +109,8 @@ export default function LandingScreen() {
           <TouchableOpacity 
             style={styles.submitButton} 
             activeOpacity={0.8}
-            onPress={() => {
+            onPress={async () => {
+              await completeOnboarding({ gpa, strand, region, income, documents });
               router.replace('/(tabs)/matches');
             }}
           >
@@ -178,15 +181,18 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#5a413d',
   },
-  progressTrack: {
+  progressBarContainer: {
+    flexDirection: 'row',
+    gap: 8,
     height: 8,
+  },
+  progressSegment: {
+    flex: 1,
     backgroundColor: '#F1F5F9',
     borderRadius: 4,
   },
-  progressFill: {
-    height: '100%',
+  progressSegmentActive: {
     backgroundColor: '#800000',
-    borderRadius: 4,
   },
   navButtonsContainer: {
     flexDirection: 'row',
@@ -219,6 +225,10 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 16,
     fontWeight: '600',
+  },
+  disabledButton: {
+    backgroundColor: '#9fa6bf',
+    opacity: 0.7,
   },
   submitButton: {
     flex: 1,

@@ -1,7 +1,32 @@
-import { Tabs } from 'expo-router';
+import { Tabs, useRouter, useSegments } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useProfile } from '../../src/context/ProfileContext';
+import { useEffect } from 'react';
+import { View, ActivityIndicator } from 'react-native';
 
 export default function TabLayout() {
+  const { hasOnboarded, isLoading } = useProfile();
+  const router = useRouter();
+  const segments = useSegments();
+
+  useEffect(() => {
+    if (!isLoading && !hasOnboarded) {
+      router.replace('/');
+    }
+  }, [hasOnboarded, isLoading, segments]);
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color="#800000" />
+      </View>
+    );
+  }
+
+  if (!hasOnboarded) {
+    return null;
+  }
+
   return (
     <Tabs
       screenOptions={{
