@@ -39,7 +39,7 @@ We migrated the application from a legacy monolithic `App.tsx` structure to Expo
 - **`app/(tabs)/_layout.tsx`**: The Main Application shell. It renders a persistent bottom tab bar for `Home`, `Tracker`, `Matches`, and `Profile`.
 
 ### 2. The Onboarding Wizard
-The onboarding flow (`src/screens/LandingScreen.tsx`) acts as a stateful controller for three modular sub-screens:
+The onboarding flow (`src/screens/OnboardingScreen.tsx`) acts as a stateful controller for three modular sub-screens:
 1. **Academic Information**: Captures GPA and Strand via custom Dropdowns.
 2. **Personal Context**: Captures Region and Income via custom Dropdowns.
 3. **Document Readiness**: Captures available documents via custom Checkboxes.

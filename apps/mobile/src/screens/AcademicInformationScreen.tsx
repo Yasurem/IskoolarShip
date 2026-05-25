@@ -32,7 +32,7 @@ export default function AcademicInformationScreen({ gpa, setGpa, strand, setStra
     <View style={styles.card}>
       <Text style={styles.cardTitle}>Academic Information</Text>
       
-      // Dropdown for GWA
+      {/* Dropdown for GWA */}
       <View style={styles.inputGroup}>
         <Text style={styles.label}>Current General Weighted Average (GWA/GPA)</Text>
         <TextInput 
@@ -46,7 +46,7 @@ export default function AcademicInformationScreen({ gpa, setGpa, strand, setStra
         <Text style={styles.helperText}>Used for binary search eligibility filtering.</Text>
       </View>
 
-      // Dropdown for Senior High School Strand
+      {/* Dropdown for Senior High School Strand */}
       <View style={styles.inputGroup}>
         <Text style={styles.label}>Senior High School Strand</Text>
         <CustomDropdown 

@@ -6,7 +6,7 @@ import AcademicInformationScreen from './AcademicInformationScreen';
 import PersonalContextScreen from './PersonalContextScreen';
 import DocumentReadinessScreen from './DocumentReadinessScreen';
 
-export default function LandingScreen() {
+export default function OnboardingScreen() {
   const router = useRouter();
   const { completeOnboarding } = useProfile();
   const [step, setStep] = useState(1);
@@ -84,7 +84,7 @@ export default function LandingScreen() {
         />
       )}
 
-      {/* Navigation Buttons */}
+      {/* Next/Back Buttons */}
       <View style={styles.navButtonsContainer}>
         {step > 1 ? (
           <TouchableOpacity 
@@ -122,6 +122,7 @@ export default function LandingScreen() {
   );
 }
 
+// Styles for the Onboarding Screen
 const styles = StyleSheet.create({
   container: {
     padding: 20,

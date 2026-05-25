@@ -12,6 +12,7 @@ interface DocumentReadinessScreenProps {
   toggleDoc: (key: 'psa' | 'form138' | 'itr' | 'gmrc') => void;
 }
 
+// Document Checklist: Helps filter scholarships based on available documents
 export default function DocumentReadinessScreen({ documents, toggleDoc }: DocumentReadinessScreenProps) {
   return (
     <View style={styles.card}>
@@ -28,6 +29,7 @@ export default function DocumentReadinessScreen({ documents, toggleDoc }: Docume
   );
 }
 
+// Styles for the Document Readiness Screen
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#FFFFFF',

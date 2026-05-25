@@ -1,6 +1,6 @@
 import React from 'react';
-import LandingScreen from '../src/screens/LandingScreen';
+import OnboardingScreen from '../src/screens/OnboardingScreen';
 
 export default function IndexRoute() {
-  return <LandingScreen />;
+  return <OnboardingScreen />;
 }
