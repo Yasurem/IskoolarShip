@@ -10,5 +10,7 @@
     {
       "path": "packages/db"
     }
-  ]
+  ],
+  "compilerOptions": {},
+  "extends": "expo/tsconfig.base"
 }

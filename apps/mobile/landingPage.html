@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IskoolarShip - Student Profile Setup</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-variant": "#d3e4fe",
+                      "primary-fixed-dim": "#ffb4a8",
+                      "on-surface": "#0b1c30",
+                      "tertiary-fixed": "#dae2fd",
+                      "inverse-on-surface": "#eaf1ff",
+                      "secondary-container": "#fdc425",
+                      "on-tertiary-fixed-variant": "#3f465c",
+                      "primary-fixed": "#ffdad4",
+                      "surface-container": "#e5eeff",
+                      "surface-dim": "#cbdbf5",
+                      "on-primary-fixed": "#410000",
+                      "secondary": "#785a00",
+                      "secondary-fixed-dim": "#f7be1d",
+                      "outline": "#8e706c",
+                      "inverse-primary": "#ffb4a8",
+                      "on-primary": "#ffffff",
+                      "on-secondary-fixed-variant": "#5a4300",
+                      "on-primary-fixed-variant": "#8f0f07",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface-variant": "#5a413d",
+                      "inverse-surface": "#213145",
+                      "surface-container-high": "#dce9ff",
+                      "background": "#f8f9ff",
+                      "surface-tint": "#b22b1d",
+                      "surface-container-highest": "#d3e4fe",
+                      "on-tertiary-container": "#9fa6bf",
+                      "secondary-fixed": "#ffdf9a",
+                      "surface-container-low": "#eff4ff",
+                      "surface": "#f8f9ff",
+                      "on-error-container": "#93000a",
+                      "primary": "#570000",
+                      "tertiary": "#1e263a",
+                      "error-container": "#ffdad6",
+                      "on-secondary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "on-secondary-container": "#6d5200",
+                      "tertiary-fixed-dim": "#bec6e0",
+                      "on-background": "#0b1c30",
+                      "on-tertiary-fixed": "#131b2e",
+                      "primary-container": "#800000",
+                      "surface-bright": "#f8f9ff",
+                      "on-primary-container": "#ff8371",
+                      "outline-variant": "#e2bfb9",
+                      "tertiary-container": "#343c51",
+                      "on-secondary-fixed": "#251a00",
+                      "error": "#ba1a1a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "grid-columns": "4",
+                      "container-margin": "20px",
+                      "inline-gap": "12px",
+                      "stack-gap": "16px",
+                      "section-padding": "24px"
+              },
+              "fontFamily": {
+                      "headline-sm": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "stat-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-sm": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "stat-lg": [
+                              "28px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        /* Base styles from style guidance */
+        body {
+            background-color: #F8FAFC; /* Base Layer */
+        }
+        .surface-card {
+            background-color: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.05);
+            transition: all 0.2s ease-in-out;
+        }
+        .surface-card:focus-within {
+            box-shadow: 0px 8px 20px rgba(128, 0, 0, 0.1);
+            border-color: #800000;
+        }
+        
+        .input-field {
+            border: 1.5px solid #E2E8F0;
+            transition: border-color 0.2s ease-in-out;
+        }
+        .input-field:focus {
+            border-color: #800000;
+            outline: none;
+            box-shadow: 0 0 0 1px #800000;
+        }
+        
+        /* Progress bar */
+        .progress-track {
+            background-color: #F1F5F9;
+            height: 8px;
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+        .progress-indicator {
+            background-color: #800000;
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.3s ease;
+        }
+        
+        /* Multi-select check */
+        .doc-check:checked + label {
+            background-color: #800000;
+            color: #ffffff;
+            border-color: #800000;
+        }
+        .doc-check:checked + label .material-symbols-outlined {
+            color: #ffffff;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-[90px] md:pb-0">
+<!-- TopAppBar -->
+<header class="bg-surface/90 dark:bg-surface-dim/90 docked full-width top-0 sticky backdrop-blur-md shadow-sm z-50 flex justify-between items-center w-full px-5 py-3">
+<div class="flex items-center gap-3">
+<img alt="Profile" class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A close-up portrait of a young Filipino student with a confident smile, wearing a casual white polo shirt. The background is slightly blurred showing a modern university campus setting. The lighting is natural and bright, emphasizing a hopeful and professional academic mood consistent with corporate modernism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqeeduk0DUiunNCh2IRype84p1hmMIiaDfg-2wCwbs5tP0bJIz6mAgd8vm0i-pF3ytUxClmk_DHDUjlyIhTb23kVUjvAUZeSb0EsH83vTEU-I2jHmqcg78hT4S5CfKeYI3RpKbda05CLc4eX7qU2kCwjr-F_6i1s76f8i5LOviCi3egA_Blyqr_2Q6UWpyqiliqfDCkKMNIssF3RgrOqZB6qBfO18gQjFjEGUKiKH_xZ6r4JAjQrjEi9404mDrvOeGGWEkCZyg-wGm"/>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg font-bold text-primary dark:text-primary-fixed-dim tracking-tight">IskoolarShip</h1>
+</div>
+<button class="hover:bg-surface-variant/50 dark:hover:bg-surface-container-highest/50 rounded-full transition-colors p-2 flex items-center justify-center active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim text-[24px]">notifications</span>
+</button>
+</header>
+<main class="max-w-3xl mx-auto px-container-margin py-section-padding">
+<!-- Onboarding Header & Progress -->
+<div class="mb-section-padding">
+<h2 class="font-headline-md text-headline-md mb-2">Build Your Academic Profile</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Complete your profile to let our algorithm find the best scholarship matches for you.</p>
+<div class="mb-2 flex justify-between items-center">
+<span class="font-label-md text-label-md text-primary">Setup Progress</span>
+<span class="font-label-md text-label-md text-on-surface-variant">33%</span>
+</div>
+<div class="progress-track w-full">
+<div class="progress-indicator w-1/3"></div>
+</div>
+</div>
+<form action="#" class="flex flex-col gap-stack-gap" method="POST">
+<!-- Section 1: Academic Info (Bento Grid Style) -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-stack-gap">
+<div class="surface-card rounded-xl p-5 col-span-1 md:col-span-2">
+<div class="flex items-center gap-2 mb-4 border-b border-outline-variant pb-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">school</span>
+<h3 class="font-headline-sm text-headline-sm text-primary">Academic Information</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface-variant" for="gpa">Current General Weighted Average (GWA/GPA)</label>
+<div class="relative">
+<input class="input-field w-full rounded-lg px-4 py-3 font-body-md text-body-md bg-surface-container-lowest" id="gpa" max="100" min="1.0" name="gpa" placeholder="e.g. 92.5 or 1.25" step="0.01" type="number"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-tertiary-container">percent</span>
+</div>
+<p class="text-xs text-on-surface-variant mt-1 opacity-70">Used for binary search eligibility filtering.</p>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface-variant" for="strand">Senior High School Strand</label>
+<div class="relative">
+<select class="input-field w-full rounded-lg px-4 py-3 font-body-md text-body-md bg-surface-container-lowest appearance-none" id="strand" name="strand">
+<option disabled="" selected="" value="">Select your strand</option>
+<option value="stem">STEM (Science, Tech, Eng, Math)</option>
+<option value="abm">ABM (Accountancy, Business, Mgt)</option>
+<option value="humss">HUMSS (Humanities &amp; Social Sciences)</option>
+<option value="gas">GAS (General Academic Strand)</option>
+<option value="tvl">TVL (Technical-Vocational-Livelihood)</option>
+<option value="arts">Arts and Design</option>
+<option value="sports">Sports</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-tertiary-container pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Personal Context -->
+<section class="surface-card rounded-xl p-5">
+<div class="flex items-center gap-2 mb-4 border-b border-outline-variant pb-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">home_pin</span>
+<h3 class="font-headline-sm text-headline-sm text-primary">Personal Context</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface-variant" for="region">Home Region</label>
+<div class="relative">
+<select class="input-field w-full rounded-lg px-4 py-3 font-body-md text-body-md bg-surface-container-lowest appearance-none" id="region" name="region">
+<option disabled="" selected="" value="">Select Region</option>
+<option value="ncr">NCR (National Capital Region)</option>
+<option value="car">CAR (Cordillera Admin Region)</option>
+<option value="1">Region I (Ilocos Region)</option>
+<option value="3">Region III (Central Luzon)</option>
+<option value="4a">Region IV-A (CALABARZON)</option>
+<option value="7">Region VII (Central Visayas)</option>
+<option value="11">Region XI (Davao Region)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-tertiary-container pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface-variant" for="income">Annual Household Income</label>
+<div class="relative">
+<select class="input-field w-full rounded-lg px-4 py-3 font-body-md text-body-md bg-surface-container-lowest appearance-none" id="income" name="income">
+<option disabled="" selected="" value="">Select Income Bracket</option>
+<option value="1">Below ₱130,000</option>
+<option value="2">₱130,000 - ₱250,000</option>
+<option value="3">₱250,001 - ₱500,000</option>
+<option value="4">₱500,001 - ₱1,000,000</option>
+<option value="5">Above ₱1,000,000</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-tertiary-container pointer-events-none">expand_more</span>
+</div>
+<p class="text-xs text-on-surface-variant mt-1 opacity-70">Critical for financial aid weighted scoring.</p>
+</div>
+</div>
+</section>
+<!-- Section 3: Document Status (Glassmorphism-esque selectable cards) -->
+<section class="surface-card rounded-xl p-5">
+<div class="flex items-center gap-2 mb-4 border-b border-outline-variant pb-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">folder_open</span>
+<h3 class="font-headline-sm text-headline-sm text-primary">Document Readiness</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Select the documents you currently have on hand. This helps filter scholarships you can apply for immediately.</p>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<div class="relative">
+<input class="doc-check sr-only" id="doc_psa" name="documents[]" type="checkbox" value="psa"/>
+<label class="flex items-center gap-3 p-3 rounded-lg border border-outline-variant cursor-pointer transition-all hover:bg-surface-container-low text-on-surface bg-surface-container-lowest" for="doc_psa">
+<span class="material-symbols-outlined text-on-surface-variant">description</span>
+<span class="font-body-md text-body-md font-semibold">PSA Birth Certificate</span>
+</label>
+</div>
+<div class="relative">
+<input class="doc-check sr-only" id="doc_form138" name="documents[]" type="checkbox" value="form138"/>
+<label class="flex items-center gap-3 p-3 rounded-lg border border-outline-variant cursor-pointer transition-all hover:bg-surface-container-low text-on-surface bg-surface-container-lowest" for="doc_form138">
+<span class="material-symbols-outlined text-on-surface-variant">assignment</span>
+<span class="font-body-md text-body-md font-semibold">Form 138 (Report Card)</span>
+</label>
+</div>
+<div class="relative">
+<input class="doc-check sr-only" id="doc_itr" name="documents[]" type="checkbox" value="itr"/>
+<label class="flex items-center gap-3 p-3 rounded-lg border border-outline-variant cursor-pointer transition-all hover:bg-surface-container-low text-on-surface bg-surface-container-lowest" for="doc_form138">
+<span class="material-symbols-outlined text-on-surface-variant">receipt_long</span>
+<span class="font-body-md text-body-md font-semibold">Parents' ITR / Tax Exemption</span>
+</label>
+</div>
+<div class="relative">
+<input class="doc-check sr-only" id="doc_gmrc" name="documents[]" type="checkbox" value="gmrc"/>
+<label class="flex items-center gap-3 p-3 rounded-lg border border-outline-variant cursor-pointer transition-all hover:bg-surface-container-low text-on-surface bg-surface-container-lowest" for="doc_gmrc">
+<span class="material-symbols-outlined text-on-surface-variant">verified</span>
+<span class="font-body-md text-body-md font-semibold">Certificate of Good Moral</span>
+</label>
+</div>
+</div>
+</section>
+<!-- Action Area -->
+<div class="mt-4 mb-8">
+<button class="w-full md:w-auto md:float-right bg-primary-container text-on-primary py-3 px-8 rounded-full font-headline-sm text-headline-sm hover:bg-surface-tint transition-colors shadow-sm flex items-center justify-center gap-2 active:scale-95 duration-150" type="submit">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">manage_search</span>
+                    Find Scholarships
+                </button>
+<div class="clear-both"></div>
+</div>
+</form>
+</main>
+<!-- Suppressed Bottom Nav as per "Transactional / Onboarding" rule in Semantic Shell Mandate -->
+<!-- Not rendering bottom nav here to keep user focused on the form completion -->
+</body></html>

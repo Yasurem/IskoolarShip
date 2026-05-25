@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "a3b5ed9a-158b-4c86-bf12-2b8b517a4ec8"
+      }
+    },
+    "android": {
+      "package": "com.yasurem.iskoolarship"
+    }
+  }
+}
