@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { CustomDropdown } from '../components/CustomDropdown';
 
 import { REGIONS } from '@iskoolarship/types';
-import type { Region } from '@iskoolarship/types';
+import type { Region, IncomeBracket } from '@iskoolarship/types';
 
 interface PersonalContextScreenProps {
   region: string;
@@ -38,7 +38,17 @@ const REGION_DISPLAY_MAP: Record<Region, string> = {
 const DB_REGIONS = REGIONS.filter(r => r !== 'All');
 const DISPLAY_OPTIONS = DB_REGIONS.map(r => REGION_DISPLAY_MAP[r]);
 
-const INCOMES = ['Below ₱130k', '₱130k - ₱250k', '₱250k - ₱500k', '₱500k - ₱1M', 'Above ₱1M'];
+// Dropdown: Display Mapping for Income Brackets
+const INCOME_DISPLAY_MAP: Record<IncomeBracket, string> = {
+  1: 'Below ₱130k',
+  2: '₱130k - ₱250k',
+  3: '₱250k - ₱500k',
+  4: '₱500k - ₱1M',
+  5: 'Above ₱1M',
+};
+
+const DB_INCOMES: IncomeBracket[] = [1, 2, 3, 4, 5];
+const INCOME_DISPLAY_OPTIONS = DB_INCOMES.map(i => INCOME_DISPLAY_MAP[i]);
 
 export default function PersonalContextScreen({ region, setRegion, income, setIncome }: PersonalContextScreenProps) {
   return (
@@ -52,7 +62,6 @@ export default function PersonalContextScreen({ region, setRegion, income, setIn
           value={REGION_DISPLAY_MAP[region as Region] || region} 
           options={DISPLAY_OPTIONS} 
           onSelect={(selectedLabel) => {
-
             // Find the corresponding database key for the selected label
             const dbValue = DB_REGIONS.find(r => REGION_DISPLAY_MAP[r] === selectedLabel);
             if (dbValue) {
@@ -66,9 +75,16 @@ export default function PersonalContextScreen({ region, setRegion, income, setIn
       <View style={styles.inputGroup}>
         <Text style={styles.label}>Annual Household Income</Text>
         <CustomDropdown 
-          value={income} 
-          options={INCOMES} 
-          onSelect={setIncome} 
+          // Display the user-friendly label for the stored bracket number string
+          value={INCOME_DISPLAY_MAP[parseInt(income) as IncomeBracket] || income} 
+          options={INCOME_DISPLAY_OPTIONS} 
+          onSelect={(selectedLabel) => {
+            // Find the corresponding database numeric key for the selected label
+            const dbValue = DB_INCOMES.find(i => INCOME_DISPLAY_MAP[i] === selectedLabel);
+            if (dbValue) {
+              setIncome(dbValue.toString());
+            }
+          }} 
           placeholder="Select Income Bracket" 
         />
         <Text style={styles.helperText}>Critical for financial aid weighted scoring.</Text>
