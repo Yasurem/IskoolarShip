@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { useRouter } from 'expo-router';
 import AcademicInformationScreen from './AcademicInformationScreen';
 import PersonalContextScreen from './PersonalContextScreen';
 import DocumentReadinessScreen from './DocumentReadinessScreen';
 
 export default function LandingScreen() {
+  const router = useRouter();
   const [step, setStep] = useState(1);
   
   const [documents, setDocuments] = useState({
@@ -106,7 +108,7 @@ export default function LandingScreen() {
             style={styles.submitButton} 
             activeOpacity={0.8}
             onPress={() => {
-              // Submit form (future implementation)
+              router.replace('/(tabs)/matches');
             }}
           >
             <Text style={styles.submitButtonText}>Find Scholarships</Text>
