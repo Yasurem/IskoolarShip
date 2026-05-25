@@ -17,14 +17,7 @@ export default function Template() {
     }
   }, [hasOnboarded, isLoading]);
 
-  if (isLoading) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F8FAFC' }}>
-        <ActivityIndicator size="large" color="#800000" />
-      </View>
-    );
-  }
-  
+
   const [documents, setDocuments] = useState({
     psa: false,
     form138: false,
@@ -49,6 +42,14 @@ export default function Template() {
   let canProceed = false;
   if (step === 1) canProceed = isAcademicComplete;
   if (step === 2) canProceed = isPersonalComplete;
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F8FAFC' }}>
+        <ActivityIndicator size="large" color="#800000" />
+      </View>
+    );
+  }
 
   return (
     // Main
