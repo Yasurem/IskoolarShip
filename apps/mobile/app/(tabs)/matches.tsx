@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Image, ActivityIndicator, LayoutAnimation, Platform, UIManager } from 'react-native';
 
-if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
-  UIManager.setLayoutAnimationEnabledExperimental(true);
-}
 import { MaterialIcons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useProfile } from '../../src/context/ProfileContext';
@@ -73,6 +70,16 @@ const ScholarshipCard = ({ scholarship, matchScore, catalog }: CardProps) => {
         <View style={styles.cardFooter}>
           <Text style={styles.footerLabel}>Estimated Grant Value</Text>
           <Text style={styles.footerAmount}>{formatMoney(scholarship.estimatedTotalValuePhp)}</Text>
+          
+          <TouchableOpacity 
+            style={[styles.trackButtonInline, isTracked && styles.trackedButtonInline]}
+            onPress={() => toggleTrack(scholarship.id)}
+          >
+            <MaterialIcons name={isTracked ? "bookmark" : "bookmark-border"} size={18} color={isTracked ? "#ffffff" : "#570000"} />
+            <Text style={[styles.trackButtonInlineText, isTracked && styles.trackedButtonInlineText]}>
+              {isTracked ? "Remove from Tracklist" : "Add to Tracker"}
+            </Text>
+          </TouchableOpacity>
         </View>
       )}
 
@@ -598,6 +605,29 @@ const styles = StyleSheet.create({
     backgroundColor: '#570000',
   },
   trackedButtonText: {
+    color: '#ffffff',
+  },
+  trackButtonInline: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    paddingVertical: 12,
+    marginTop: 12,
+    borderWidth: 1.5,
+    borderColor: '#570000',
+    borderRadius: 8,
+    backgroundColor: '#ffffff',
+  },
+  trackButtonInlineText: {
+    color: '#570000',
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  trackedButtonInline: {
+    backgroundColor: '#570000',
+  },
+  trackedButtonInlineText: {
     color: '#ffffff',
   },
 });

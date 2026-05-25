@@ -5,6 +5,7 @@ import { useProfile } from '../context/ProfileContext';
 import AcademicInformationScreen from './AcademicInformationScreen';
 import PersonalContextScreen from './PersonalContextScreen';
 import DocumentReadinessScreen from './DocumentReadinessScreen';
+import NicknameScreen from './NicknameScreen';
 
 export default function Template() {
   const router = useRouter();
@@ -25,6 +26,7 @@ export default function Template() {
     gmrc: false,
   });
 
+  const [nickname, setNickname] = useState('');
   const [gpa, setGpa] = useState('');
   const [strand, setStrand] = useState('');
   const [region, setRegion] = useState('');
@@ -35,13 +37,15 @@ export default function Template() {
   };
 
   // Calculate progress
+  const isNicknameComplete = nickname.trim() !== '';
   const isAcademicComplete = gpa.trim() !== '' && strand !== '';
   const isPersonalComplete = region !== '' && income !== '';
   const isDocsComplete = Object.values(documents).some(val => val === true);
 
   let canProceed = false;
-  if (step === 1) canProceed = isAcademicComplete;
-  if (step === 2) canProceed = isPersonalComplete;
+  if (step === 1) canProceed = isNicknameComplete;
+  if (step === 2) canProceed = isAcademicComplete;
+  if (step === 3) canProceed = isPersonalComplete;
 
   if (isLoading) {
     return (
@@ -76,34 +80,41 @@ export default function Template() {
         {/* Progress Description */}
         <View style={styles.progressHeader}>
           <Text style={styles.progressLabel}>Setup Progress</Text>
-          <Text style={styles.progressValue}>Step {step} of 3</Text>
+          <Text style={styles.progressValue}>Step {step} of 4</Text>
         </View>
 
         {/* Progress Bar */}
         <View style={styles.progressBarContainer}>
+          <View style={[styles.progressSegment, isNicknameComplete ? styles.progressSegmentActive : null]} />
           <View style={[styles.progressSegment, isAcademicComplete ? styles.progressSegmentActive : null]} />
           <View style={[styles.progressSegment, isPersonalComplete ? styles.progressSegmentActive : null]} />
-          <View style={[styles.progressSegment, isDocsComplete || step === 3 ? styles.progressSegmentActive : null]} />
+          <View style={[styles.progressSegment, isDocsComplete || step === 4 ? styles.progressSegmentActive : null]} />
         </View>
       </View>
 
       {/* Render Screens */}
       {/* File Ref: ../apps/mobile/src/screens/ */}
       {step === 1 && (
+        <NicknameScreen 
+          nickname={nickname} setNickname={setNickname} 
+        />
+      )}
+      
+      {step === 2 && (
         <AcademicInformationScreen 
           gpa={gpa} setGpa={setGpa} strand={strand} setStrand={setStrand} 
         />
       )}
       {/* Ref: ../apps/mobile/src/screens/AcademicInformationScreen.tsx */}
       
-      {step === 2 && (
+      {step === 3 && (
         <PersonalContextScreen 
           region={region} setRegion={setRegion} income={income} setIncome={setIncome} 
         />
       )}
       {/* Ref: ../apps/mobile/src/screens/PersonalContextScreen.tsx */}
 
-      {step === 3 && (
+      {step === 4 && (
         <DocumentReadinessScreen 
           documents={documents} toggleDoc={toggleDoc} 
         />
@@ -122,7 +133,7 @@ export default function Template() {
           </TouchableOpacity>
         ) : <View style={{ flex: 1 }} />}
 
-        {step < 3 ? (
+        {step < 4 ? (
           <TouchableOpacity 
             style={[styles.nextButton, !canProceed && styles.disabledButton]} 
             activeOpacity={0.8}
@@ -136,7 +147,7 @@ export default function Template() {
             style={styles.submitButton} 
             activeOpacity={0.8}
             onPress={async () => {
-              await completeOnboarding({ gpa, strand, region, income, documents });
+              await completeOnboarding({ nickname, gpa, strand, region, income, documents });
               router.replace('/(tabs)/matches');
             }}
           >

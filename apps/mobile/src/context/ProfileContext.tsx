@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect, useContext } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export type ProfileData = {
+  nickname: string;
   gpa: string;
   strand: string;
   region: string;
