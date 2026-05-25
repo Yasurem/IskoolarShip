@@ -1,15 +1,67 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, ScrollView, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TextInput, ScrollView, StyleSheet, TouchableOpacity, Image, Modal, FlatList } from 'react-native';
 
 // Simple mock for a checkbox
 const Checkbox = ({ label, checked, onChange }: { label: string, checked: boolean, onChange: () => void }) => (
   <TouchableOpacity style={[styles.checkboxContainer, checked && styles.checkboxChecked]} onPress={onChange} activeOpacity={0.7}>
     <View style={[styles.checkboxBox, checked && styles.checkboxBoxChecked]}>
-      {checked && <Text style={styles.checkmark}>✓</Text>}
+      {checked && <View style={styles.checkmarkShape} />}
     </View>
     <Text style={[styles.checkboxLabel, checked && styles.checkboxLabelChecked]}>{label}</Text>
   </TouchableOpacity>
 );
+
+const CustomDropdown = ({ value, options, onSelect, placeholder }: { value: string, options: string[], onSelect: (v: string) => void, placeholder: string }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  return (
+    <View>
+      <TouchableOpacity 
+        style={styles.mockSelect} 
+        activeOpacity={0.7}
+        onPress={() => setModalVisible(true)}
+      >
+        <Text style={[styles.mockSelectText, value ? styles.mockSelectTextActive : null]}>
+          {value || placeholder}
+        </Text>
+      </TouchableOpacity>
+
+      <Modal
+        visible={modalVisible}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <TouchableOpacity 
+          style={styles.modalOverlay} 
+          activeOpacity={1} 
+          onPressOut={() => setModalVisible(false)}
+        >
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>{placeholder}</Text>
+            <FlatList
+              data={options}
+              keyExtractor={(item) => item}
+              renderItem={({ item }) => (
+                <TouchableOpacity 
+                  style={styles.modalOption}
+                  onPress={() => {
+                    onSelect(item);
+                    setModalVisible(false);
+                  }}
+                >
+                  <Text style={[styles.modalOptionText, value === item && styles.modalOptionTextSelected]}>
+                    {item}
+                  </Text>
+                </TouchableOpacity>
+              )}
+            />
+          </View>
+        </TouchableOpacity>
+      </Modal>
+    </View>
+  );
+};
 
 export default function LandingScreen() {
   const [documents, setDocuments] = useState({
@@ -27,12 +79,6 @@ export default function LandingScreen() {
   const STRANDS = ['STEM', 'ABM', 'HUMSS', 'GAS', 'TVL', 'Arts & Design', 'Sports'];
   const REGIONS = ['NCR', 'CAR', 'Region I', 'Region III', 'Region IV-A', 'Region VII', 'Region XI'];
   const INCOMES = ['Below ₱130k', '₱130k - ₱250k', '₱250k - ₱500k', '₱500k - ₱1M', 'Above ₱1M'];
-
-  const cycleOption = (current: string, options: string[], setter: (v: string) => void) => {
-    const currentIndex = options.indexOf(current);
-    const nextIndex = (currentIndex + 1) % options.length;
-    setter(options[nextIndex] as string);
-  };
 
   const toggleDoc = (key: keyof typeof documents) => {
     setDocuments(prev => ({ ...prev, [key]: !prev[key] }));
@@ -96,15 +142,12 @@ export default function LandingScreen() {
 
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Senior High School Strand</Text>
-          <TouchableOpacity 
-            style={styles.mockSelect} 
-            activeOpacity={0.7}
-            onPress={() => cycleOption(strand, STRANDS, setStrand)}
-          >
-             <Text style={[styles.mockSelectText, strand ? styles.mockSelectTextActive : null]}>
-               {strand || 'Tap to select strand'}
-             </Text>
-          </TouchableOpacity>
+          <CustomDropdown 
+            value={strand} 
+            options={STRANDS} 
+            onSelect={setStrand} 
+            placeholder="Select your strand" 
+          />
         </View>
       </View>
 
@@ -114,28 +157,22 @@ export default function LandingScreen() {
         
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Home Region</Text>
-          <TouchableOpacity 
-            style={styles.mockSelect} 
-            activeOpacity={0.7}
-            onPress={() => cycleOption(region, REGIONS, setRegion)}
-          >
-             <Text style={[styles.mockSelectText, region ? styles.mockSelectTextActive : null]}>
-               {region || 'Tap to select Region'}
-             </Text>
-          </TouchableOpacity>
+          <CustomDropdown 
+            value={region} 
+            options={REGIONS} 
+            onSelect={setRegion} 
+            placeholder="Select Region" 
+          />
         </View>
 
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Annual Household Income</Text>
-          <TouchableOpacity 
-            style={styles.mockSelect} 
-            activeOpacity={0.7}
-            onPress={() => cycleOption(income, INCOMES, setIncome)}
-          >
-             <Text style={[styles.mockSelectText, income ? styles.mockSelectTextActive : null]}>
-               {income || 'Tap to select Income Bracket'}
-             </Text>
-          </TouchableOpacity>
+          <CustomDropdown 
+            value={income} 
+            options={INCOMES} 
+            onSelect={setIncome} 
+            placeholder="Select Income Bracket" 
+          />
           <Text style={styles.helperText}>Critical for financial aid weighted scoring.</Text>
         </View>
       </View>
@@ -284,6 +321,45 @@ const styles = StyleSheet.create({
   mockSelectTextActive: {
     color: '#0b1c30',
   },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    justifyContent: 'center',
+    padding: 24,
+  },
+  modalContent: {
+    backgroundColor: '#ffffff',
+    borderRadius: 12,
+    maxHeight: '70%',
+    padding: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 4,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#0b1c30',
+    marginBottom: 8,
+    paddingBottom: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E2E8F0',
+  },
+  modalOption: {
+    paddingVertical: 14,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f1f5f9',
+  },
+  modalOptionText: {
+    fontSize: 16,
+    color: '#3f465c',
+  },
+  modalOptionTextSelected: {
+    color: '#800000',
+    fontWeight: '600',
+  },
   helperText: {
     fontSize: 12,
     color: '#5a413d',
@@ -320,10 +396,15 @@ const styles = StyleSheet.create({
   checkboxBoxChecked: {
     borderColor: '#ffffff',
   },
-  checkmark: {
-    color: '#ffffff',
-    fontSize: 14,
-    fontWeight: 'bold',
+  checkmarkShape: {
+    width: 6,
+    height: 12,
+    borderBottomWidth: 2.5,
+    borderRightWidth: 2.5,
+    borderColor: '#ffffff',
+    transform: [{ rotate: '45deg' }],
+    marginTop: -2,
+    marginLeft: 1,
   },
   checkboxLabel: {
     fontSize: 14,
