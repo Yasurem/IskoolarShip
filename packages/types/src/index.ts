@@ -182,3 +182,15 @@ export const INCOME_DISPLAY_MAP: Record<IncomeBracket, string> = {
   4: '₱500k - ₱1M',
   5: 'Above ₱1M',
 };
+
+export const STRAND_DISPLAY_MAP: Record<Strand, string> = {
+  All: 'All Strands',
+  STEM: 'STEM',
+  ABM: 'ABM',
+  HUMSS: 'HUMSS',
+  GAS: 'GAS',
+  TVL: 'TVL',
+  ArtsDesign: 'Arts & Design',
+  Sports: 'Sports',
+  NotApplicable: 'Not Applicable',
+};

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { CustomDropdown } from '../components/CustomDropdown';
-import { STRANDS } from '@iskoolarship/types';
+import { STRANDS, STRAND_DISPLAY_MAP } from '@iskoolarship/types';
 import type { Strand } from '@iskoolarship/types';
 
 interface AcademicInformationScreenProps {
@@ -10,20 +10,6 @@ interface AcademicInformationScreenProps {
   strand: string;
   setStrand: (v: string) => void;
 }
-
-// Dictionary mapping the DB safe string to a clean UI display label
-// Reference: ../packages/types/src/index.ts
-const STRAND_DISPLAY_MAP: Record<Strand, string> = {
-  All: 'All Strands',
-  STEM: 'STEM',
-  ABM: 'ABM',
-  HUMSS: 'HUMSS',
-  GAS: 'GAS',
-  TVL: 'TVL',
-  ArtsDesign: 'Arts & Design',
-  Sports: 'Sports',
-  NotApplicable: 'Not Applicable',
-};
 
 // Dropdown: Get the list of UI options (excluding system keys like "All")
 const DB_STRANDS = STRANDS.filter(s => s !== 'All');
