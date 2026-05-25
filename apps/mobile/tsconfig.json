@@ -5,5 +5,8 @@
     "noImplicitReturns": true,
     "noUncheckedIndexedAccess": true
   },
-  "include": ["App.tsx", "index.ts"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }

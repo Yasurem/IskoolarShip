@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IskoolarShip - Document Tracker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#d3e4fe",
+                        "primary-fixed-dim": "#ffb4a8",
+                        "on-surface": "#0b1c30",
+                        "tertiary-fixed": "#dae2fd",
+                        "inverse-on-surface": "#eaf1ff",
+                        "secondary-container": "#fdc425",
+                        "on-tertiary-fixed-variant": "#3f465c",
+                        "primary-fixed": "#ffdad4",
+                        "surface-container": "#e5eeff",
+                        "surface-dim": "#cbdbf5",
+                        "on-primary-fixed": "#410000",
+                        "secondary": "#785a00",
+                        "secondary-fixed-dim": "#f7be1d",
+                        "outline": "#8e706c",
+                        "inverse-primary": "#ffb4a8",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed-variant": "#5a4300",
+                        "on-primary-fixed-variant": "#8f0f07",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#5a413d",
+                        "inverse-surface": "#213145",
+                        "surface-container-high": "#dce9ff",
+                        "background": "#f8f9ff",
+                        "surface-tint": "#b22b1d",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary-container": "#9fa6bf",
+                        "secondary-fixed": "#ffdf9a",
+                        "surface-container-low": "#eff4ff",
+                        "surface": "#f8f9ff",
+                        "on-error-container": "#93000a",
+                        "primary": "#570000",
+                        "tertiary": "#1e263a",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#6d5200",
+                        "tertiary-fixed-dim": "#bec6e0",
+                        "on-background": "#0b1c30",
+                        "on-tertiary-fixed": "#131b2e",
+                        "primary-container": "#800000",
+                        "surface-bright": "#f8f9ff",
+                        "on-primary-container": "#ff8371",
+                        "outline-variant": "#e2bfb9",
+                        "tertiary-container": "#343c51",
+                        "on-secondary-fixed": "#251a00",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "grid-columns": "4",
+                        "container-margin": "20px",
+                        "inline-gap": "12px",
+                        "stack-gap": "16px",
+                        "section-padding": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "stat-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "stat-lg": ["28px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .circular-progress {
+            transform: rotate(-90deg);
+        }
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom, 20px); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-lg overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-surface/90 dark:bg-surface-dim/90 font-headline-sm text-headline-sm docked full-width top-0 sticky backdrop-blur-md border-b border-outline-variant dark:border-outline shadow-sm flex justify-between items-center w-full px-5 py-3 z-50">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-outline-variant shrink-0">
+<img alt="Student Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a young university student wearing casual but neat academic attire, isolated on a light neutral background, well-lit with soft, natural lighting, conveying readiness and ambition in a modern light-mode setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDt2jKGSwcnt5Am5faeS7pU-bFwstY1XIpi_QbKzTvoRLJyeYixE_P-DjhvkWUUXHUALltnpBxHVR6ujFCVv8Ey5rsBxdTge3pNe1wQMZPbh_g59_CyGK_vQRol4d_DRnc2Cj5tkGUimKN0SFYPf4gp6HT1iSDMz0G-XilrgySROsLOVcKEupS-4CBkb6V9VdbL0csFq7Rhm1lwawO_2ev7KWdVZdrZzgofJV1tIHOaEm1uNncE2MekPsXXCJtQGYsHdn8XNmdjH2Po"/>
+</div>
+<span class="font-display-lg text-display-lg-mobile font-bold text-primary dark:text-primary-fixed-dim">IskoolarShip</span>
+</div>
+<button class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-variant/50 dark:hover:bg-surface-container-highest/50 rounded-full transition-colors p-2 active:scale-95 transition-transform duration-150 flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+</header>
+<!-- Main Canvas -->
+<main class="flex-grow px-container-margin py-section-padding pb-32 max-w-[600px] mx-auto w-full flex flex-col gap-stack-gap">
+<!-- Header Section -->
+<section class="mb-2">
+<h1 class="font-headline-md text-headline-md text-primary">Document Tracker</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">school</span>
+                DOST-SEI Undergraduate Scholarship
+            </p>
+</section>
+<!-- Progress Overview Bento Card -->
+<section class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant shadow-[0_4px_12px_rgba(0,0,0,0.05)] flex items-center gap-6 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/4"></div>
+<div class="relative w-24 h-24 shrink-0">
+<svg class="w-full h-full circular-progress" viewbox="0 0 100 100">
+<circle class="text-surface-variant stroke-current" cx="50" cy="50" fill="transparent" r="40" stroke-width="8"></circle>
+<circle class="text-primary-container stroke-current" cx="50" cy="50" fill="transparent" r="40" stroke-dasharray="251.2" stroke-dashoffset="87.92" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center flex-col">
+<span class="font-stat-lg text-stat-lg text-primary">65%</span>
+</div>
+</div>
+<div class="flex-grow z-10">
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-1">Almost There!</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">You have 2 documents remaining to complete your application folder.</p>
+</div>
+</section>
+<!-- Checklist Section -->
+<section class="flex flex-col gap-3">
+<div class="flex justify-between items-end mb-1">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Required Documents</h3>
+<span class="font-label-md text-label-md text-on-surface-variant">2 of 4 Completed</span>
+</div>
+<!-- Uploaded Document -->
+<div class="group bg-surface-container-lowest rounded-lg p-4 border border-outline-variant shadow-[0_4px_12px_rgba(0,0,0,0.02)] flex items-start gap-4 transition-all hover:shadow-[0_8px_20px_rgba(128,0,0,0.05)] hover:-translate-y-0.5"><div class="w-8 h-8 rounded-full bg-secondary-container/20 text-secondary-container flex items-center justify-center shrink-0 mt-0.5"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span></div><div class="flex-grow"><h4 class="font-body-lg text-body-lg font-medium text-on-surface line-through decoration-on-surface-variant/50">PSA Birth Certificate</h4><p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1 mt-1"><span class="material-symbols-outlined text-[14px]">verified</span> Completed</p></div></div>
+<!-- Uploaded Document -->
+<div class="group bg-surface-container-lowest rounded-lg p-4 border border-outline-variant shadow-[0_4px_12px_rgba(0,0,0,0.02)] flex items-start gap-4 transition-all hover:shadow-[0_8px_20px_rgba(128,0,0,0.05)] hover:-translate-y-0.5"><div class="w-8 h-8 rounded-full bg-secondary-container/20 text-secondary-container flex items-center justify-center shrink-0 mt-0.5"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span></div><div class="flex-grow"><h4 class="font-body-lg text-body-lg font-medium text-on-surface line-through decoration-on-surface-variant/50">Form 138 - Report Card</h4><p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1 mt-1"><span class="material-symbols-outlined text-[14px]">verified</span> Completed</p></div></div>
+<!-- Missing Document -->
+<div class="bg-surface-container-low rounded-lg p-4 border border-outline-variant flex items-start gap-4 transition-all"><div class="w-8 h-8 rounded-full border-2 border-outline-variant flex items-center justify-center shrink-0 mt-0.5"><span class="material-symbols-outlined text-outline-variant">check_box_outline_blank</span></div><div class="flex-grow"><h4 class="font-body-lg text-body-lg font-medium text-on-surface">Certificate of Good Moral Character</h4><p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1 mt-1"><span class="material-symbols-outlined text-[14px]">pending</span> Pending Submission</p></div></div>
+<!-- Missing Document -->
+<div class="bg-surface-container-low rounded-lg p-4 border border-outline-variant flex items-start gap-4 transition-all"><div class="w-8 h-8 rounded-full border-2 border-outline-variant flex items-center justify-center shrink-0 mt-0.5"><span class="material-symbols-outlined text-outline-variant">check_box_outline_blank</span></div><div class="flex-grow"><h4 class="font-body-lg text-body-lg font-medium text-on-surface">Income Tax Return (ITR)</h4><p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1 mt-1"><span class="material-symbols-outlined text-[14px]">pending</span> Pending Submission</p></div></div>
+</section>
+<!-- Call to Action -->
+<div class="mt-4"><button class="w-full bg-primary text-on-primary font-headline-sm text-headline-sm py-4 rounded-xl shadow-md hover:shadow-lg hover:opacity-95 transition-all flex items-center justify-center gap-2 active:scale-[0.98]"><span class="material-symbols-outlined">save</span> Update Tracker</button></div>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-surface dark:bg-surface-container-lowest font-label-md text-label-md fixed bottom-0 w-full z-50 border-t border-outline-variant shadow-[0_-4px_12px_rgba(0,0,0,0.05)] fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pt-3 pb-safe md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant py-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors group" href="#">
+<div class="px-5 py-1 rounded-2xl transition-colors group-active:scale-90 duration-200">
+<span class="material-symbols-outlined block text-center" data-icon="home">home</span>
+</div>
+<span class="mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-2xl px-5 py-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors group" href="#">
+<div class="transition-colors group-active:scale-90 duration-200">
+<span class="material-symbols-outlined block text-center" data-icon="task_alt" style="font-variation-settings: 'FILL' 1;">task_alt</span>
+</div>
+<span class="mt-1">Tracker</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant py-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors group" href="#">
+<div class="px-5 py-1 rounded-2xl transition-colors group-active:scale-90 duration-200">
+<span class="material-symbols-outlined block text-center" data-icon="calculate">calculate</span>
+</div>
+<span class="mt-1">Optimizer</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant py-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors group" href="#">
+<div class="px-5 py-1 rounded-2xl transition-colors group-active:scale-90 duration-200">
+<span class="material-symbols-outlined block text-center" data-icon="person">person</span>
+</div>
+<span class="mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IskoolarShip Onboarding - Document Readiness</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9ff;
+        }
+        .glass-header {
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .step-transition {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .checkbox-custom:checked + label .check-box {
+            background-color: #800000;
+            border-color: #800000;
+        }
+        .checkbox-custom:checked + label .check-box span {
+            display: block;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error": "#ba1a1a",
+                      "secondary-fixed": "#ffdf9a",
+                      "on-tertiary-container": "#9fa6bf",
+                      "on-secondary-fixed-variant": "#5a4300",
+                      "tertiary-fixed": "#dae2fd",
+                      "secondary-container": "#fdc425",
+                      "on-error-container": "#93000a",
+                      "outline-variant": "#e2bfb9",
+                      "primary-fixed": "#ffdad4",
+                      "outline": "#8e706c",
+                      "on-secondary-fixed": "#251a00",
+                      "surface-variant": "#d3e4fe",
+                      "on-primary": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "secondary": "#785a00",
+                      "on-tertiary-fixed-variant": "#3f465c",
+                      "surface-container": "#e5eeff",
+                      "surface": "#f8f9ff",
+                      "on-surface": "#0b1c30",
+                      "inverse-on-surface": "#eaf1ff",
+                      "surface-tint": "#b22b1d",
+                      "on-surface-variant": "#5a413d",
+                      "on-primary-fixed-variant": "#8f0f07",
+                      "error-container": "#ffdad6",
+                      "surface-bright": "#f8f9ff",
+                      "tertiary-container": "#343c51",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-fixed-dim": "#ffb4a8",
+                      "tertiary": "#1e263a",
+                      "surface-container-high": "#dce9ff",
+                      "tertiary-fixed-dim": "#bec6e0",
+                      "on-tertiary-fixed": "#131b2e",
+                      "inverse-primary": "#ffb4a8",
+                      "primary": "#570000",
+                      "secondary-fixed-dim": "#f7be1d",
+                      "on-background": "#0b1c30",
+                      "primary-container": "#800000",
+                      "surface-container-highest": "#d3e4fe",
+                      "surface-container-low": "#eff4ff",
+                      "inverse-surface": "#213145",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed": "#410000",
+                      "on-secondary-container": "#6d5200",
+                      "on-secondary": "#ffffff",
+                      "surface-dim": "#cbdbf5",
+                      "on-primary-container": "#ff8371",
+                      "background": "#f8f9ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-margin": "20px",
+                      "stack-gap": "16px",
+                      "grid-columns": "4",
+                      "section-padding": "24px",
+                      "inline-gap": "12px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Inter"],
+                      "stat-lg": ["Inter"],
+                      "headline-sm": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-md": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "stat-lg": ["28px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface flex flex-col min-h-screen">
+<!-- Top AppBar (Onboarding Context: Back only) -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-5 py-3 glass-header bg-surface/90 border-b border-outline-variant shadow-sm h-16">
+<button class="w-10 h-10 flex items-center justify-center hover:bg-surface-variant/50 rounded-full transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">IskoolarShip</span>
+<div class="w-10"></div> <!-- Spacer for symmetry -->
+</header>
+<main class="flex-grow container max-w-md mx-auto px-container-margin py-8 flex flex-col">
+<!-- Progress Stepper -->
+<div class="mb-10">
+<div class="flex justify-between items-center mb-4">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Step 3 of 3</span>
+<span class="font-label-md text-label-md text-primary font-bold">90% Complete</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[90%] rounded-full transition-all duration-700 ease-out"></div>
+</div>
+</div>
+<!-- Content Header -->
+<div class="mb-8">
+<h1 class="font-display-lg text-display-lg-mobile text-on-surface mb-3">Document Readiness</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                Knowing what you have ready helps us suggest scholarships you can apply for immediately.
+            </p>
+</div>
+<!-- Asymmetric Document Card Grid (Focus on interaction) -->
+<div class="space-y-4 mb-12">
+<!-- Checklist Item 1 -->
+<div class="relative">
+<input checked="" class="hidden checkbox-custom" id="psa_birth" type="checkbox"/>
+<label class="flex items-center p-5 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm cursor-pointer hover:border-primary/30 hover:shadow-md transition-all active:scale-[0.98]" for="psa_birth">
+<div class="check-box w-6 h-6 rounded-md border-2 border-outline-variant flex items-center justify-center mr-4 transition-colors">
+<span class="material-symbols-outlined text-white text-sm hidden">check</span>
+</div>
+<div class="flex-grow">
+<span class="font-headline-sm text-headline-sm block">PSA Birth Certificate</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Original or Certified True Copy</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant/40">description</span>
+</label>
+</div>
+<!-- Checklist Item 2 -->
+<div class="relative">
+<input class="hidden checkbox-custom" id="form_138" type="checkbox"/>
+<label class="flex items-center p-5 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm cursor-pointer hover:border-primary/30 hover:shadow-md transition-all active:scale-[0.98]" for="form_138">
+<div class="check-box w-6 h-6 rounded-md border-2 border-outline-variant flex items-center justify-center mr-4 transition-colors">
+<span class="material-symbols-outlined text-white text-sm hidden">check</span>
+</div>
+<div class="flex-grow">
+<span class="font-headline-sm text-headline-sm block">Form 138 (Report Card)</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Final grades from previous year</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant/40">school</span>
+</label>
+</div>
+<!-- Checklist Item 3 -->
+<div class="relative">
+<input class="hidden checkbox-custom" id="itr" type="checkbox"/>
+<label class="flex items-center p-5 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm cursor-pointer hover:border-primary/30 hover:shadow-md transition-all active:scale-[0.98]" for="itr">
+<div class="check-box w-6 h-6 rounded-md border-2 border-outline-variant flex items-center justify-center mr-4 transition-colors">
+<span class="material-symbols-outlined text-white text-sm hidden">check</span>
+</div>
+<div class="flex-grow">
+<span class="font-headline-sm text-headline-sm block">Parents' ITR / Tax Exemption</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Proof of household income</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant/40">payments</span>
+</label>
+</div>
+<!-- Checklist Item 4 -->
+<div class="relative">
+<input class="hidden checkbox-custom" id="good_moral" type="checkbox"/>
+<label class="flex items-center p-5 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm cursor-pointer hover:border-primary/30 hover:shadow-md transition-all active:scale-[0.98]" for="good_moral">
+<div class="check-box w-6 h-6 rounded-md border-2 border-outline-variant flex items-center justify-center mr-4 transition-colors">
+<span class="material-symbols-outlined text-white text-sm hidden">check</span>
+</div>
+<div class="flex-grow">
+<span class="font-headline-sm text-headline-sm block">Certificate of Good Moral</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Issued by your last school attended</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant/40">verified</span>
+</label>
+</div>
+</div>
+<!-- Decorative Info Card -->
+<div class="p-4 bg-tertiary/5 rounded-2xl border border-tertiary-fixed-dim/20 flex gap-4 items-start mb-8">
+<span class="material-symbols-outlined text-tertiary-container mt-1">lightbulb</span>
+<p class="font-body-md text-body-md text-on-tertiary-fixed-variant">
+<strong>Tip:</strong> Don't have these yet? No problem! You can still browse scholarships and update your profile later.
+            </p>
+</div>
+<!-- Primary CTA Area -->
+<div class="mt-auto pt-6">
+<button class="w-full bg-primary-container text-on-primary-container font-headline-sm text-headline-sm py-4 rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95 transition-all duration-200 flex items-center justify-center gap-2" onclick="window.location.reload()">
+                Find Scholarships
+                <span class="material-symbols-outlined">auto_awesome</span>
+</button>
+<button class="w-full mt-4 py-3 text-on-surface-variant font-label-md text-label-md uppercase tracking-widest hover:text-primary transition-colors">
+                Skip for now
+            </button>
+</div>
+</main>
+<!-- Footer Graphic / Subtle Background Polish -->
+<div class="fixed bottom-0 left-0 right-0 h-1/4 -z-10 pointer-events-none overflow-hidden">
+<div class="absolute -bottom-10 -right-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-20 -left-20 w-80 h-80 bg-secondary/5 rounded-full blur-3xl"></div>
+</div>
+<!-- Visual Polish: Image Placeholder for Brand Continuity -->
+<div class="container max-w-md mx-auto px-container-margin mt-4 mb-20">
+<div class="w-full h-32 rounded-3xl overflow-hidden relative border border-outline-variant/30">
+<img alt="Students celebrating graduation" class="w-full h-full object-cover" data-alt="A cinematic, low-angle shot of a group of Filipino students in a sun-drenched university campus courtyard. They are dressed in formal graduation attire, looking towards the bright morning sun with expressions of hope and achievement. The lighting is warm and golden, reflecting a prestige academic atmosphere. The color palette emphasizes deep maroon and cream tones with high-contrast shadows, maintaining a corporate yet inspiring modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHUN9wrZrQ48NDTcvtRSJcxa7x1EmYZQS_wVTC19geb5qNwQ_Y_juho6KIO3uzQTWWvjQhbtZt_YB4mxtJEcQS5uImDP1xKVLVkghfeaNIIusmhw2RVHoX4jLb3kRa5uq08JMIZyoStIKI7FaXQS9JXfI-4WNU85Dcms4mq0ZIuEcDWzvVSz_qo2edoC1Ha2soWDVGkRcw6zlJkiu_DHqzZ6TWHxuj3UY156l-E7sPcKLWU1MeiVNBjo0Z8mbcSDFmMkll1tk5mHIF"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-5">
+<span class="text-white font-bold text-headline-sm">Your journey begins.</span>
+</div>
+</div>
+</div>
+<script>
+        // Simple micro-interaction for checkboxes
+        const checkboxes = document.querySelectorAll('.checkbox-custom');
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', (e) => {
+                const label = e.target.nextElementSibling;
+                if(e.target.checked) {
+                    label.classList.add('border-primary-container', 'bg-primary/5');
+                } else {
+                    label.classList.remove('border-primary-container', 'bg-primary/5');
+                }
+            });
+            // Init state
+            if(cb.checked) {
+                cb.nextElementSibling.classList.add('border-primary-container', 'bg-primary/5');
+            }
+        });
+    </script>
+</body></html>

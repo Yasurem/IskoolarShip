@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Scholarship Matches - IskoolarShip</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#d3e4fe",
+                        "primary-fixed-dim": "#ffb4a8",
+                        "on-surface": "#0b1c30",
+                        "tertiary-fixed": "#dae2fd",
+                        "inverse-on-surface": "#eaf1ff",
+                        "secondary-container": "#fdc425",
+                        "on-tertiary-fixed-variant": "#3f465c",
+                        "primary-fixed": "#ffdad4",
+                        "surface-container": "#e5eeff",
+                        "surface-dim": "#cbdbf5",
+                        "on-primary-fixed": "#410000",
+                        "secondary": "#785a00",
+                        "secondary-fixed-dim": "#f7be1d",
+                        "outline": "#8e706c",
+                        "inverse-primary": "#ffb4a8",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed-variant": "#5a4300",
+                        "on-primary-fixed-variant": "#8f0f07",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#5a413d",
+                        "inverse-surface": "#213145",
+                        "surface-container-high": "#dce9ff",
+                        "background": "#f8f9ff",
+                        "surface-tint": "#b22b1d",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary-container": "#9fa6bf",
+                        "secondary-fixed": "#ffdf9a",
+                        "surface-container-low": "#eff4ff",
+                        "surface": "#f8f9ff",
+                        "on-error-container": "#93000a",
+                        "primary": "#570000",
+                        "tertiary": "#1e263a",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#6d5200",
+                        "tertiary-fixed-dim": "#bec6e0",
+                        "on-background": "#0b1c30",
+                        "on-tertiary-fixed": "#131b2e",
+                        "primary-container": "#800000",
+                        "surface-bright": "#f8f9ff",
+                        "on-primary-container": "#ff8371",
+                        "outline-variant": "#e2bfb9",
+                        "tertiary-container": "#343c51",
+                        "on-secondary-fixed": "#251a00",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "grid-columns": "4",
+                        "container-margin": "20px",
+                        "inline-gap": "12px",
+                        "stack-gap": "16px",
+                        "section-padding": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "stat-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "stat-lg": ["28px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #F8FAFC;
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom, 20px); }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-lg antialiased min-h-screen flex flex-col pb-24 md:pb-0">
+<!-- TopAppBar -->
+<header class="bg-surface/90 backdrop-blur-md border-b border-outline-variant shadow-sm flex justify-between items-center w-full px-5 py-3 z-50 sticky top-0 md:hidden">
+<div class="flex items-center gap-inline-gap">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant">
+<img alt="Student Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCm4wpN8C_oQNAj7W_yBo5dVFL5muEOm4jZxUHVfKv2DFHZ3VrI78ZtS_k21CkX96foO1xnIYWC2El-WybHbcykbJRH346Q73zkSgno57NmVcYKUzH-7gnaNmrWvCGziQjQfn3TRLaKYlEVMlQ4TEyl3dWx_iFdkUBB6SnmISh39QqZxSwdWZLSxHw7yg-oCyA-Uff7f69j5ChewQo5gPix3CEjSAAe9GrJMYQ5YOsE3GMGfyIcBu6ETB35lgOh0a_3CwnyOnM6VH3V"/>
+</div>
+<h1 class="font-display-lg text-[24px] font-bold text-primary">IskoolarShip</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-primary rounded-full hover:bg-surface-variant/50 transition-colors">
+<span class="material-symbols-outlined text-[24px]">notifications</span>
+</button>
+</header>
+<!-- Web Navigation (hidden on mobile) -->
+<header class="hidden md:flex bg-surface border-b border-outline-variant px-8 py-4 justify-between items-center sticky top-0 z-50 shadow-sm">
+<div class="flex items-center gap-6">
+<h1 class="font-display-lg text-display-lg font-bold text-primary mr-8">IskoolarShip</h1>
+<nav class="flex gap-2">
+<a class="px-4 py-2 font-label-md text-label-md text-on-surface-variant rounded-full hover:bg-surface-variant/50 transition-colors" href="#">Home</a>
+<a class="px-4 py-2 font-label-md text-label-md text-on-surface-variant rounded-full hover:bg-surface-variant/50 transition-colors" href="#">Tracker</a>
+<a class="px-4 py-2 font-label-md text-label-md bg-secondary-container text-on-secondary-container rounded-full" href="#">Matches</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-primary hover:bg-surface-variant/50 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant">
+<img alt="Student Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7aUDwD0oh74pG02hOnRJxJGZaiZlR3YWf1PKWzujTjTyX0xw6lTWKpcJ_HAJTx3iFEGbc8H-RI3D07XnpiER_ZK9fKwYult9B9nmvEskg9m_nYMyT1AaK2Ev4HHkcEn9INJUehuSYvuEY3MODOlB0Vx6OygFq1-vGWkPvLibN7-0ceNGtdDvj403osmsyBDZtwgu6uOsMj0yIQKxACZJjGnKMFCNxNb1T0yevtWZIQXACxUVo_ED5VmpWR4Kpunh-RmXtjrCrhRRs"/>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-3xl mx-auto px-container-margin py-section-padding">
+<!-- Header Section -->
+<div class="mb-8">
+<h2 class="font-display-lg text-[28px] md:text-display-lg font-bold text-on-background mb-2">Scholarship Matches</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Personalized recommendations based on your profile compatibility.</p>
+</div>
+<!-- Recommended List -->
+<div class="flex flex-col gap-stack-gap">
+<!-- Card 1 -->
+<div class="bg-surface rounded-xl p-5 shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-outline-variant hover:shadow-[0_8px_20px_rgba(128,0,0,0.1)] transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-4 items-center">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-primary">account_balance</span>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface">DOST-SEI Merit Scholarship</h4>
+<span class="font-label-md text-label-md text-on-surface-variant bg-surface-variant px-2 py-0.5 rounded-sm">Government</span>
+</div>
+</div>
+<div class="bg-secondary-container text-on-secondary-container font-label-md text-label-md px-3 py-1.5 rounded-full flex items-center gap-1 font-bold shadow-sm">
+<span class="material-symbols-outlined text-[16px]" data-weight="fill">verified</span>
+                        92% Match
+                    </div>
+</div>
+<div class="border-t border-outline-variant pt-4 mt-2">
+<span class="font-label-md text-label-md text-on-surface-variant block mb-1">Potential Amount</span>
+<span class="font-headline-sm text-[20px] text-primary font-bold">₱40,000 / yr</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface rounded-xl p-5 shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-outline-variant hover:shadow-[0_8px_20px_rgba(128,0,0,0.1)] transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-4 items-center">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-primary">domain</span>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Ayala Foundation Grant</h4>
+<span class="font-label-md text-label-md text-on-surface-variant bg-surface-variant px-2 py-0.5 rounded-sm">Private</span>
+</div>
+</div>
+<div class="bg-secondary-container text-on-secondary-container font-label-md text-label-md px-3 py-1.5 rounded-full flex items-center gap-1 font-bold shadow-sm">
+<span class="material-symbols-outlined text-[16px]" data-weight="fill">verified</span>
+                        88% Match
+                    </div>
+</div>
+<div class="border-t border-outline-variant pt-4 mt-2">
+<span class="font-label-md text-label-md text-on-surface-variant block mb-1">Potential Amount</span>
+<span class="font-headline-sm text-[20px] text-primary font-bold">₱50,000 / yr</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface rounded-xl p-5 shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-outline-variant hover:shadow-[0_8px_20px_rgba(128,0,0,0.1)] transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-4 items-center">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-primary">school</span>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface">University Alumni Fund</h4>
+<span class="font-label-md text-label-md text-on-surface-variant bg-surface-variant px-2 py-0.5 rounded-sm">Institutional</span>
+</div>
+</div>
+<div class="bg-surface-variant text-on-surface-variant font-label-md text-label-md px-3 py-1.5 rounded-full flex items-center gap-1 font-bold">
+<span class="material-symbols-outlined text-[16px]">info</span>
+                        75% Match
+                    </div>
+</div>
+<div class="border-t border-outline-variant pt-4 mt-2">
+<span class="font-label-md text-label-md text-on-surface-variant block mb-1">Potential Amount</span>
+<span class="font-headline-sm text-[20px] text-primary font-bold">₱30,000 / yr</span>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pt-3 pb-safe bg-surface border-t border-outline-variant shadow-[0_-4px_12px_rgba(0,0,0,0.05)] md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant py-1 hover:text-primary transition-colors w-16" href="#">
+<span class="material-symbols-outlined text-[24px] mb-1">home</span>
+<span class="font-label-md text-[10px]">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant py-1 hover:text-primary transition-colors w-16" href="#">
+<span class="material-symbols-outlined text-[24px] mb-1">task_alt</span>
+<span class="font-label-md text-[10px]">Tracker</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-2xl px-5 py-1 transition-all scale-90 duration-200" href="#">
+<span class="material-symbols-outlined text-[24px] mb-1" data-weight="fill">verified</span>
+<span class="font-label-md text-[10px] font-bold">Matches</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant py-1 hover:text-primary transition-colors w-16" href="#">
+<span class="material-symbols-outlined text-[24px] mb-1">person</span>
+<span class="font-label-md text-[10px]">Profile</span>
+</a>
+</nav>
+</body></html>

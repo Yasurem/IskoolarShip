@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IskoolarShip - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#d3e4fe",
+                    "primary-fixed-dim": "#ffb4a8",
+                    "on-surface": "#0b1c30",
+                    "tertiary-fixed": "#dae2fd",
+                    "inverse-on-surface": "#eaf1ff",
+                    "secondary-container": "#fdc425",
+                    "on-tertiary-fixed-variant": "#3f465c",
+                    "primary-fixed": "#ffdad4",
+                    "surface-container": "#e5eeff",
+                    "surface-dim": "#cbdbf5",
+                    "on-primary-fixed": "#410000",
+                    "secondary": "#785a00",
+                    "secondary-fixed-dim": "#f7be1d",
+                    "outline": "#8e706c",
+                    "inverse-primary": "#ffb4a8",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed-variant": "#5a4300",
+                    "on-primary-fixed-variant": "#8f0f07",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface-variant": "#5a413d",
+                    "inverse-surface": "#213145",
+                    "surface-container-high": "#dce9ff",
+                    "background": "#f8f9ff",
+                    "surface-tint": "#b22b1d",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-tertiary-container": "#9fa6bf",
+                    "secondary-fixed": "#ffdf9a",
+                    "surface-container-low": "#eff4ff",
+                    "surface": "#f8f9ff",
+                    "on-error-container": "#93000a",
+                    "primary": "#570000",
+                    "tertiary": "#1e263a",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-secondary-container": "#6d5200",
+                    "tertiary-fixed-dim": "#bec6e0",
+                    "on-background": "#0b1c30",
+                    "on-tertiary-fixed": "#131b2e",
+                    "primary-container": "#800000",
+                    "surface-bright": "#f8f9ff",
+                    "on-primary-container": "#ff8371",
+                    "outline-variant": "#e2bfb9",
+                    "tertiary-container": "#343c51",
+                    "on-secondary-fixed": "#251a00",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "grid-columns": "4",
+                    "container-margin": "20px",
+                    "inline-gap": "12px",
+                    "stack-gap": "16px",
+                    "section-padding": "24px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "stat-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                    "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                    "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                    "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                    "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                    "stat-lg": ["28px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { padding-bottom: calc(env(safe-area-inset-bottom) + 80px); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen antialiased">
+<!-- TopAppBar -->
+<header class="bg-surface/90 dark:bg-surface-dim/90 docked full-width top-0 sticky backdrop-blur-md border-b border-outline-variant dark:border-outline shadow-sm z-50">
+<div class="flex justify-between items-center w-full px-5 py-3 z-50">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center overflow-hidden">
+<img alt="student_profile_photo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNCIzZf1adplfDP5niAQ92wMKdvOyoxvg21XzWKV_VyfHv8AQQLllgDdICBCksaZ-CEE3bNICBqX9mLVfGUqAlPEGpeihGsYv_fwj_cFwjpYbrNo6KJR9wktMdIAzUte-IsEdiunZQyidFoOtONo1hvmwjrE6A9NF2neg0jO_iuytAXaxRhGWUgfgxLbsVWAcqSnmvQygP4cV-A0LlJDU5npkUqaUdxdGCVttTUUoL4BQgM0OgxNRLKTF3sXqZp-dEtXC07Aa6Dv65"/>
+</div>
+<h1 class="font-display-lg text-display-lg-mobile font-bold text-primary dark:text-primary-fixed-dim">IskoolarShip</h1>
+</div>
+<button class="w-10 h-10 hover:bg-surface-variant/50 dark:hover:bg-surface-container-highest/50 rounded-full transition-colors flex items-center justify-center text-primary dark:text-primary-fixed-dim Active: scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+<main class="container mx-auto px-container-margin py-section-padding max-w-3xl">
+<!-- Welcome Section -->
+<section class="mb-8">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2">Welcome back, Maria!</h2>
+<div class="flex gap-4">
+<div class="bg-surface-container-low px-4 py-3 rounded-lg border border-outline-variant flex-1 flex flex-col justify-center shadow-sm">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Current GPA</span>
+<span class="font-stat-lg text-stat-lg text-primary">1.25</span>
+</div>
+<div class="bg-surface-container-low px-4 py-3 rounded-lg border border-outline-variant flex-1 flex flex-col justify-center shadow-sm">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Strand</span>
+<span class="font-stat-lg text-stat-lg text-primary">STEM</span>
+</div>
+</div>
+</section>
+<!-- Filter Summary -->
+<section class="mb-6 flex items-center justify-between bg-tertiary-fixed px-4 py-3 rounded-lg">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary">filter_list</span>
+<span class="font-body-md text-body-md text-on-tertiary-fixed"><strong>45</strong> scholarships matched based on your profile.</span>
+</div>
+<span class="font-label-md text-label-md text-primary-container bg-surface px-2 py-1 rounded-full border border-outline-variant">Optimized</span>
+</section>
+<!-- Scholarship List -->
+<section class="flex flex-col gap-stack-gap">
+<!-- Card 1 -->
+<article class="bg-surface rounded-xl border border-outline-variant p-5 shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_20px_rgba(128,0,0,0.1)] transition-shadow duration-300 relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-3 items-center">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-primary border border-outline-variant">
+<span class="material-symbols-outlined text-2xl">school</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">DOST-SEI Scholarship</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Department of Science and Technology</p>
+</div>
+</div>
+<div class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full flex items-center gap-1 border border-secondary-fixed-dim">
+<span class="material-symbols-outlined text-sm fill">local_fire_department</span>
+<span class="font-label-md text-label-md font-bold">98% Match</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 border-t border-outline-variant pt-4">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1 mb-1"><span class="material-symbols-outlined text-[16px]">payments</span> Amount</p>
+<p class="font-body-lg text-body-lg font-semibold text-primary">₱40,000/sem</p>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1 mb-1"><span class="material-symbols-outlined text-[16px]">schedule</span> Est. Effort</p>
+<p class="font-body-lg text-body-lg text-on-surface">15 hrs</p>
+</div>
+</div>
+<div class="absolute inset-0 border-2 border-primary rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface rounded-xl border border-outline-variant p-5 shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_20px_rgba(128,0,0,0.1)] transition-shadow duration-300 relative group">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-3 items-center">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-primary border border-outline-variant">
+<span class="material-symbols-outlined text-2xl">account_balance</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">CHED Merit Scholarship</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Commission on Higher Education</p>
+</div>
+</div>
+<div class="bg-surface-container-high text-on-surface px-3 py-1 rounded-full flex items-center gap-1 border border-outline-variant">
+<span class="font-label-md text-label-md font-bold">85% Match</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 border-t border-outline-variant pt-4">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1 mb-1"><span class="material-symbols-outlined text-[16px]">payments</span> Amount</p>
+<p class="font-body-lg text-body-lg font-semibold text-primary">₱30,000/sem</p>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1 mb-1"><span class="material-symbols-outlined text-[16px]">schedule</span> Est. Effort</p>
+<p class="font-body-lg text-body-lg text-on-surface">10 hrs</p>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-surface rounded-xl border border-outline-variant p-5 shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_20px_rgba(128,0,0,0.1)] transition-shadow duration-300 relative group">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-3 items-center">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-primary border border-outline-variant">
+<span class="material-symbols-outlined text-2xl">domain</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">SM Foundation Scholarship</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">SM Investments Corporation</p>
+</div>
+</div>
+<div class="bg-surface-container text-on-surface-variant px-3 py-1 rounded-full flex items-center gap-1 border border-outline-variant">
+<span class="font-label-md text-label-md font-bold">72% Match</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 border-t border-outline-variant pt-4">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1 mb-1"><span class="material-symbols-outlined text-[16px]">payments</span> Amount</p>
+<p class="font-body-lg text-body-lg font-semibold text-primary">₱25,000/sem</p>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1 mb-1"><span class="material-symbols-outlined text-[16px]">schedule</span> Est. Effort</p>
+<p class="font-body-lg text-body-lg text-on-surface">12 hrs</p>
+</div>
+</div>
+</article>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-surface dark:bg-surface-container-lowest fixed bottom-0 w-full z-50 border-t border-outline-variant shadow-[0_-4px_12px_rgba(0,0,0,0.05)] md:hidden">
+<div class="flex justify-around items-center px-4 pt-3 pb-safe">
+<!-- Active: Home -->
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-2xl px-5 py-1 Active: scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined fill" data-icon="home" data-weight="fill">home</span>
+<span class="font-label-md text-label-md mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant py-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="task_alt">task_alt</span>
+<span class="font-label-md text-label-md mt-1">Tracker</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant py-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="calculate">calculate</span>
+<span class="font-label-md text-label-md mt-1">Optimizer</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant py-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md mt-1">Profile</span>
+</a>
+</div>
+</nav>
+</body></html>

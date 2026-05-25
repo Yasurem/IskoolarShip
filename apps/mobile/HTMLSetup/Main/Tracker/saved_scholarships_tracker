@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Saved Scholarships - IskoolarShip</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .progress-bar-glow {
+            box-shadow: 0 0 8px rgba(128, 0, 0, 0.2);
+        }
+        .glass-card {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.8);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9ff;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-tint": "#b22b1d",
+                      "surface-bright": "#f8f9ff",
+                      "on-surface": "#0b1c30",
+                      "on-primary-fixed-variant": "#8f0f07",
+                      "primary-fixed": "#ffdad4",
+                      "surface-container-high": "#dce9ff",
+                      "surface-container": "#e5eeff",
+                      "secondary-fixed": "#ffdf9a",
+                      "outline": "#8e706c",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-background": "#0b1c30",
+                      "on-surface-variant": "#5a413d",
+                      "error-container": "#ffdad6",
+                      "error": "#ba1a1a",
+                      "background": "#f8f9ff",
+                      "on-secondary": "#ffffff",
+                      "primary": "#570000",
+                      "on-primary-fixed": "#410000",
+                      "secondary-container": "#fdc425",
+                      "tertiary": "#1e263a",
+                      "primary-container": "#800000",
+                      "on-tertiary-container": "#9fa6bf",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-highest": "#d3e4fe",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-fixed-variant": "#5a4300",
+                      "surface-dim": "#cbdbf5",
+                      "on-tertiary-fixed": "#131b2e",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed-dim": "#bec6e0",
+                      "primary-fixed-dim": "#ffb4a8",
+                      "secondary": "#785a00",
+                      "on-secondary-fixed": "#251a00",
+                      "outline-variant": "#e2bfb9",
+                      "on-tertiary-fixed-variant": "#3f465c",
+                      "on-error-container": "#93000a",
+                      "inverse-surface": "#213145",
+                      "surface-variant": "#d3e4fe",
+                      "surface": "#f8f9ff",
+                      "tertiary-container": "#343c51",
+                      "on-primary-container": "#ff8371",
+                      "on-primary": "#ffffff",
+                      "on-secondary-container": "#6d5200",
+                      "tertiary-fixed": "#dae2fd",
+                      "secondary-fixed-dim": "#f7be1d",
+                      "surface-container-low": "#eff4ff",
+                      "inverse-primary": "#ffb4a8"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "inline-gap": "12px",
+                      "container-margin": "20px",
+                      "stack-gap": "16px",
+                      "grid-columns": "4",
+                      "section-padding": "24px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Inter"],
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-sm": ["Inter"],
+                      "stat-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "display-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "stat-lg": ["28px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface pb-32">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 backdrop-blur-md bg-surface/90 flex justify-between items-center px-container-margin py-4 w-full shadow-sm">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-headline-sm" data-icon="school">school</span>
+<h1 class="font-display-lg text-headline-sm font-bold text-primary">Saved Scholarships</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-surface-container-high/50 transition-colors active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="search">search</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high/50 transition-colors active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+<main class="mt-20 px-container-margin">
+<!-- Filter Chips -->
+<div class="flex gap-2 overflow-x-auto pb-4 no-scrollbar -mx-container-margin px-container-margin sticky top-16 bg-surface/80 backdrop-blur-sm z-40 py-2">
+<button class="px-4 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md whitespace-nowrap shadow-md">All</button>
+<button class="px-4 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-high transition-colors">In Progress</button>
+<button class="px-4 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-high transition-colors">Ready to Submit</button>
+<button class="px-4 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-high transition-colors">Reviewing</button>
+</div>
+<!-- Scholarship List Grid -->
+<div class="grid grid-cols-1 gap-stack-gap mt-4">
+<!-- Scholarship Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_20px_rgba(128,0,0,0.1)] transition-all duration-300 group">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-3">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden flex items-center justify-center border border-outline-variant/20">
+<img alt="Provider Logo" class="w-10 h-10 object-contain" data-alt="A clean, minimalist emblem of a government scientific institution, featuring stylized atoms and gear shapes in a deep blue and white palette. The logo is set against a pristine, soft-lit background, representing institutional authority and scientific advancement within a prestigious academic context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD54N496Y1ocsW4R-6_DkncLPaFXIwqO1mg5QjOQMm3aDGjUD0e1uMsleMsaWJzDsFJTb0n4Naz0OZWcaQGIn5XhxDy4FRKHTizcaGYCpa9TYa531pG1pJHNflEnMj009gpSLAUnua_YBGUsT2FB7NyPSiEsInIpglmcN_8vz1h0bKePLnLjTV_XBqjqJT9dh9hM5iuRfGc0xOokhcIJ8a7lapNOBgPsjCfO-z1NhAIGB3v3luwM1X_vJPXYgUTkplnjaCyKyuIfFnO"/>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface leading-tight">DOST-SEI Merit Scholarship</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Department of Science and Technology</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary-container fill-[1]" data-icon="bookmark" style="font-variation-settings: 'FILL' 1;">bookmark</span>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-end">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Tracker Progress</span>
+<span class="font-label-md text-label-md text-primary font-bold">85%</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2.5 overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all duration-1000 progress-bar-glow" style="width: 85%;"></div>
+</div>
+</div>
+<div class="mt-4 flex items-center justify-between border-t border-outline-variant/20 pt-4">
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 px-2 py-1 rounded bg-secondary-container text-on-secondary-container font-label-md text-label-md">
+<span class="material-symbols-outlined text-[14px]" data-icon="pending_actions">pending_actions</span>
+                            Ready to Submit
+                        </span>
+</div>
+<div class="flex items-center gap-1 text-error font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span>
+                        Ends in 5 days
+                    </div>
+</div>
+</div>
+<!-- Scholarship Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_20px_rgba(128,0,0,0.1)] transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-3">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden flex items-center justify-center border border-outline-variant/20">
+<img alt="Provider Logo" class="w-10 h-10 object-contain" data-alt="A professional logo for a higher education commission featuring a classic open book and torch symbol in golden yellow and navy blue. The visual style is institutional and modern, with soft shadows and sharp vectors suggesting academic excellence and regulatory trust." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUcDndRYyck6C0YRGZEgu3hkd4Mb8-cvasE4tf2QjSlknWGSJsXSgmoK3NhgB1MpTrykH-IhZNt2uxmvKByb5hd3-r5HifQMy-GnydaEyDvgxAx9pK7RVRsYHWJB0pSZ5Q1-SOuMfKLKM0X6XHiDbYMspIdmX3FVzTVhX3n0bG3z3TUDmaiCbWJ0v9KQonYgzNJbrVCJmtJZj1VVUhDSL3lw-BKINh_s-spRBqoXXYq7XGdH0_4-yQMHDH4d9fr94PXQBs9uFwnjK3"/>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface leading-tight">CHED Merit Scholarship</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">CHED Philippines</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary-container fill-[1]" data-icon="bookmark" style="font-variation-settings: 'FILL' 1;">bookmark</span>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-end">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Tracker Progress</span>
+<span class="font-label-md text-label-md text-on-surface-variant font-bold">40%</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2.5 overflow-hidden">
+<div class="bg-primary/40 h-full rounded-full transition-all duration-1000" style="width: 40%;"></div>
+</div>
+</div>
+<div class="mt-4 flex items-center justify-between border-t border-outline-variant/20 pt-4">
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 px-2 py-1 rounded bg-surface-container text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[14px]" data-icon="sync">sync</span>
+                            In Progress
+                        </span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]" data-icon="event">event</span>
+                        Oct 15, 2024
+                    </div>
+</div>
+</div>
+<!-- Scholarship Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_20px_rgba(128,0,0,0.1)] transition-all duration-300 opacity-80">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-3">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden flex items-center justify-center border border-outline-variant/20">
+<img alt="Provider Logo" class="w-10 h-10 object-contain" data-alt="A modern corporate foundation logo featuring a stylized tree with interconnected nodes representing growth and community in vibrant emerald green and professional navy. The lighting is bright and optimistic, reflecting a high-end philanthropic aesthetic focused on student empowerment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUzDpHWoVZM3YnZmcS-_6C6mjolQZW39qF6AYi-Gxc-9yAGErJbqr35oyZcSxWdtENPo_V2GGVARNIjtrofEG2UcsEf1XeExLlJ_zOMqz5WZKw_0G3ivs06_piri2eTo0O-JsZnida9IGYhy2sVhWQR258JXoplktqPV-uDgeB1G36Z0G5FHnEp7dbQ1FvD1uvelVLtqueqqP_HWzvuWlgqlx9SceGffUkWjiNa0b1QvJ7irUGwRD-Hy5ueN4iK4dL1oaTP5IBLy7i"/>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface leading-tight">Aboitiz College Scholarship</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Aboitiz Foundation</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary-container fill-[1]" data-icon="bookmark" style="font-variation-settings: 'FILL' 1;">bookmark</span>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-end">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Tracker Progress</span>
+<span class="font-label-md text-label-md text-tertiary font-bold">100%</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2.5 overflow-hidden">
+<div class="bg-tertiary h-full rounded-full transition-all duration-1000" style="width: 100%;"></div>
+</div>
+</div>
+<div class="mt-4 flex items-center justify-between border-t border-outline-variant/20 pt-4">
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 px-2 py-1 rounded bg-tertiary text-on-tertiary font-label-md text-label-md">
+<span class="material-symbols-outlined text-[14px]" data-icon="check_circle">check_circle</span>
+                            Submitted
+                        </span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]" data-icon="history">history</span>
+                        Sept 01, 2024
+                    </div>
+</div>
+</div>
+</div>
+<!-- Empty State (Hidden by default) -->
+<div class="hidden flex flex-col items-center justify-center py-20 text-center px-8" id="empty-state">
+<div class="w-24 h-24 bg-surface-container-high rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-[48px] text-primary/40" data-icon="bookmark_add">bookmark_add</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2">No Saved Scholarships</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8">Start your journey by exploring scholarships that match your profile. Save them here to track your progress.</p>
+<button class="px-8 py-3 bg-primary text-on-primary rounded-full font-headline-sm text-headline-sm shadow-lg hover:shadow-primary/20 transition-all active:scale-95">
+                Explore Recommendations
+            </button>
+</div>
+</main>
+<!-- FAB -->
+<button class="fixed bottom-24 right-6 w-14 h-14 bg-primary text-on-primary rounded-2xl shadow-xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-40">
+<span class="material-symbols-outlined text-[28px]" data-icon="add">add</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-3 pb-safe bg-surface shadow-[0_-4px_12px_rgba(0,0,0,0.05)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-md text-label-md mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="assignment_turned_in">assignment_turned_in</span>
+<span class="font-label-md text-label-md mt-1">Tracker</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-md text-label-md mt-1">Optimizer</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md mt-1">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions and simple state handling
+        document.querySelectorAll('.filter-chip').forEach(chip => {
+            chip.addEventListener('click', function() {
+                document.querySelectorAll('.filter-chip').forEach(c => {
+                    c.classList.remove('bg-primary', 'text-on-primary', 'shadow-md');
+                    c.classList.add('bg-surface-container', 'text-on-surface-variant');
+                });
+                this.classList.remove('bg-surface-container', 'text-on-surface-variant');
+                this.classList.add('bg-primary', 'text-on-primary', 'shadow-md');
+            });
+        });
+
+        // Simple function to toggle empty state for demo purposes
+        function toggleEmptyState(isEmpty) {
+            const list = document.querySelector('.grid');
+            const empty = document.getElementById('empty-state');
+            if (isEmpty) {
+                list.classList.add('hidden');
+                empty.classList.remove('hidden');
+            } else {
+                list.classList.remove('hidden');
+                empty.classList.add('hidden');
+            }
+        }
+    </script>
+</body></html>

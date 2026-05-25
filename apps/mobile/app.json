@@ -6,13 +6,21 @@
     "orientation": "portrait",
     "scheme": "iskoolarship",
     "userInterfaceStyle": "light",
-    "platforms": ["android", "ios", "web"],
+    "platforms": [
+      "android",
+      "ios",
+      "web"
+    ],
     "android": {
       "package": "com.iskoolarship.mobile",
       "edgeToEdgeEnabled": true
     },
     "extra": {
       "privacyModel": "student-data-stays-on-device"
-    }
+    },
+    "plugins": [
+      "expo-router",
+      "expo-status-bar"
+    ]
   }
 }

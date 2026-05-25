@@ -1,69 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, ScrollView, StyleSheet, TouchableOpacity, Image, Modal, FlatList } from 'react-native';
-
-// Simple mock for a checkbox
-const Checkbox = ({ label, checked, onChange }: { label: string, checked: boolean, onChange: () => void }) => (
-  <TouchableOpacity style={[styles.checkboxContainer, checked && styles.checkboxChecked]} onPress={onChange} activeOpacity={0.7}>
-    <View style={[styles.checkboxBox, checked && styles.checkboxBoxChecked]}>
-      {checked && <View style={styles.checkmarkShape} />}
-    </View>
-    <Text style={[styles.checkboxLabel, checked && styles.checkboxLabelChecked]}>{label}</Text>
-  </TouchableOpacity>
-);
-
-const CustomDropdown = ({ value, options, onSelect, placeholder }: { value: string, options: string[], onSelect: (v: string) => void, placeholder: string }) => {
-  const [modalVisible, setModalVisible] = useState(false);
-
-  return (
-    <View>
-      <TouchableOpacity 
-        style={styles.mockSelect} 
-        activeOpacity={0.7}
-        onPress={() => setModalVisible(true)}
-      >
-        <Text style={[styles.mockSelectText, value ? styles.mockSelectTextActive : null]}>
-          {value || placeholder}
-        </Text>
-      </TouchableOpacity>
-
-      <Modal
-        visible={modalVisible}
-        transparent={true}
-        animationType="fade"
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <TouchableOpacity 
-          style={styles.modalOverlay} 
-          activeOpacity={1} 
-          onPressOut={() => setModalVisible(false)}
-        >
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>{placeholder}</Text>
-            <FlatList
-              data={options}
-              keyExtractor={(item) => item}
-              renderItem={({ item }) => (
-                <TouchableOpacity 
-                  style={styles.modalOption}
-                  onPress={() => {
-                    onSelect(item);
-                    setModalVisible(false);
-                  }}
-                >
-                  <Text style={[styles.modalOptionText, value === item && styles.modalOptionTextSelected]}>
-                    {item}
-                  </Text>
-                </TouchableOpacity>
-              )}
-            />
-          </View>
-        </TouchableOpacity>
-      </Modal>
-    </View>
-  );
-};
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import AcademicInformationScreen from './AcademicInformationScreen';
+import PersonalContextScreen from './PersonalContextScreen';
+import DocumentReadinessScreen from './DocumentReadinessScreen';
 
 export default function LandingScreen() {
+  const [step, setStep] = useState(1);
+  
   const [documents, setDocuments] = useState({
     psa: false,
     form138: false,
@@ -75,10 +18,6 @@ export default function LandingScreen() {
   const [strand, setStrand] = useState('');
   const [region, setRegion] = useState('');
   const [income, setIncome] = useState('');
-
-  const STRANDS = ['STEM', 'ABM', 'HUMSS', 'GAS', 'TVL', 'Arts & Design', 'Sports'];
-  const REGIONS = ['NCR', 'CAR', 'Region I', 'Region III', 'Region IV-A', 'Region VII', 'Region XI'];
-  const INCOMES = ['Below ₱130k', '₱130k - ₱250k', '₱250k - ₱500k', '₱500k - ₱1M', 'Above ₱1M'];
 
   const toggleDoc = (key: keyof typeof documents) => {
     setDocuments(prev => ({ ...prev, [key]: !prev[key] }));
@@ -123,77 +62,57 @@ export default function LandingScreen() {
         </View>
       </View>
 
-      {/* Academic Info */}
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Academic Information</Text>
-        
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Current General Weighted Average (GWA/GPA)</Text>
-          <TextInput 
-            style={styles.input} 
-            placeholder="e.g. 92.5 or 1.25" 
-            keyboardType="decimal-pad"
-            placeholderTextColor="#9fa6bf"
-            value={gpa}
-            onChangeText={setGpa}
-          />
-          <Text style={styles.helperText}>Used for binary search eligibility filtering.</Text>
-        </View>
+      {/* Step Render */}
+      {step === 1 && (
+        <AcademicInformationScreen 
+          gpa={gpa} setGpa={setGpa} strand={strand} setStrand={setStrand} 
+        />
+      )}
+      
+      {step === 2 && (
+        <PersonalContextScreen 
+          region={region} setRegion={setRegion} income={income} setIncome={setIncome} 
+        />
+      )}
 
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Senior High School Strand</Text>
-          <CustomDropdown 
-            value={strand} 
-            options={STRANDS} 
-            onSelect={setStrand} 
-            placeholder="Select your strand" 
-          />
-        </View>
+      {step === 3 && (
+        <DocumentReadinessScreen 
+          documents={documents} toggleDoc={toggleDoc} 
+        />
+      )}
+
+      {/* Navigation Buttons */}
+      <View style={styles.navButtonsContainer}>
+        {step > 1 ? (
+          <TouchableOpacity 
+            style={styles.backButton} 
+            activeOpacity={0.8}
+            onPress={() => setStep(step - 1)}
+          >
+            <Text style={styles.backButtonText}>Back</Text>
+          </TouchableOpacity>
+        ) : <View style={{ flex: 1 }} />}
+
+        {step < 3 ? (
+          <TouchableOpacity 
+            style={styles.nextButton} 
+            activeOpacity={0.8}
+            onPress={() => setStep(step + 1)}
+          >
+            <Text style={styles.nextButtonText}>Next</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity 
+            style={styles.submitButton} 
+            activeOpacity={0.8}
+            onPress={() => {
+              // Submit form (future implementation)
+            }}
+          >
+            <Text style={styles.submitButtonText}>Find Scholarships</Text>
+          </TouchableOpacity>
+        )}
       </View>
-
-      {/* Personal Context */}
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Personal Context</Text>
-        
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Home Region</Text>
-          <CustomDropdown 
-            value={region} 
-            options={REGIONS} 
-            onSelect={setRegion} 
-            placeholder="Select Region" 
-          />
-        </View>
-
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Annual Household Income</Text>
-          <CustomDropdown 
-            value={income} 
-            options={INCOMES} 
-            onSelect={setIncome} 
-            placeholder="Select Income Bracket" 
-          />
-          <Text style={styles.helperText}>Critical for financial aid weighted scoring.</Text>
-        </View>
-      </View>
-
-      {/* Documents */}
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Document Readiness</Text>
-        <Text style={styles.sectionSubtitle}>Select the documents you currently have on hand. This helps filter scholarships you can apply for immediately.</Text>
-
-        <View style={styles.checkboxGrid}>
-          <Checkbox label="PSA Birth Certificate" checked={documents.psa} onChange={() => toggleDoc('psa')} />
-          <Checkbox label="Form 138 (Report Card)" checked={documents.form138} onChange={() => toggleDoc('form138')} />
-          <Checkbox label="Parents' ITR / Tax Exemption" checked={documents.itr} onChange={() => toggleDoc('itr')} />
-          <Checkbox label="Certificate of Good Moral" checked={documents.gmrc} onChange={() => toggleDoc('gmrc')} />
-        </View>
-      </View>
-
-      {/* Submit */}
-      <TouchableOpacity style={styles.submitButton} activeOpacity={0.8}>
-        <Text style={styles.submitButtonText}>Find Scholarships</Text>
-      </TouchableOpacity>
     </ScrollView>
   );
 }
@@ -267,165 +186,48 @@ const styles = StyleSheet.create({
     backgroundColor: '#800000',
     borderRadius: 4,
   },
-  card: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    padding: 20,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: '#E2E8F0',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 6,
-    elevation: 2,
-  },
-  cardTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#570000',
-    marginBottom: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e2bfb9',
-    paddingBottom: 8,
-  },
-  inputGroup: {
-    marginBottom: 16,
-  },
-  label: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: '#5a413d',
-    marginBottom: 8,
-  },
-  input: {
-    borderWidth: 1.5,
-    borderColor: '#E2E8F0',
-    borderRadius: 8,
-    padding: 12,
-    fontSize: 14,
-    backgroundColor: '#ffffff',
-    color: '#0b1c30',
-  },
-  mockSelect: {
-    borderWidth: 1.5,
-    borderColor: '#E2E8F0',
-    borderRadius: 8,
-    padding: 12,
-    backgroundColor: '#ffffff',
-  },
-  mockSelectText: {
-    color: '#9fa6bf',
-    fontSize: 14,
-  },
-  mockSelectTextActive: {
-    color: '#0b1c30',
-  },
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.4)',
-    justifyContent: 'center',
-    padding: 24,
-  },
-  modalContent: {
-    backgroundColor: '#ffffff',
-    borderRadius: 12,
-    maxHeight: '70%',
-    padding: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 12,
-    elevation: 4,
-  },
-  modalTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#0b1c30',
-    marginBottom: 8,
-    paddingBottom: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#E2E8F0',
-  },
-  modalOption: {
-    paddingVertical: 14,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f1f5f9',
-  },
-  modalOptionText: {
-    fontSize: 16,
-    color: '#3f465c',
-  },
-  modalOptionTextSelected: {
-    color: '#800000',
-    fontWeight: '600',
-  },
-  helperText: {
-    fontSize: 12,
-    color: '#5a413d',
-    marginTop: 4,
-    opacity: 0.7,
-  },
-  checkboxGrid: {
+  navButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 8,
     gap: 12,
   },
-  checkboxContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 12,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#e2bfb9',
+  backButton: {
+    flex: 1,
     backgroundColor: '#ffffff',
-    marginBottom: 8,
+    borderRadius: 24,
+    paddingVertical: 14,
+    alignItems: 'center',
+    borderWidth: 1.5,
+    borderColor: '#E2E8F0',
   },
-  checkboxChecked: {
-    backgroundColor: '#800000',
-    borderColor: '#800000',
+  backButtonText: {
+    color: '#3f465c',
+    fontSize: 16,
+    fontWeight: '600',
   },
-  checkboxBox: {
-    width: 20,
-    height: 20,
-    borderRadius: 4,
-    borderWidth: 1,
-    borderColor: '#e2bfb9',
-    marginRight: 12,
-    justifyContent: 'center',
+  nextButton: {
+    flex: 1,
+    backgroundColor: '#0b1c30',
+    borderRadius: 24,
+    paddingVertical: 14,
     alignItems: 'center',
   },
-  checkboxBoxChecked: {
-    borderColor: '#ffffff',
-  },
-  checkmarkShape: {
-    width: 6,
-    height: 12,
-    borderBottomWidth: 2.5,
-    borderRightWidth: 2.5,
-    borderColor: '#ffffff',
-    transform: [{ rotate: '45deg' }],
-    marginTop: -2,
-    marginLeft: 1,
-  },
-  checkboxLabel: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#0b1c30',
-  },
-  checkboxLabelChecked: {
+  nextButtonText: {
     color: '#ffffff',
+    fontSize: 16,
+    fontWeight: '600',
   },
   submitButton: {
+    flex: 1,
     backgroundColor: '#800000',
     borderRadius: 24,
     paddingVertical: 14,
-    paddingHorizontal: 32,
     alignItems: 'center',
-    alignSelf: 'stretch',
-    marginTop: 8,
   },
   submitButtonText: {
     color: '#ffffff',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '600',
   }
 });

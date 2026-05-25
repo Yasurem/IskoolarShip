@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IskoolarShip - Academic Qualifications</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error": "#ba1a1a",
+                    "secondary-fixed": "#ffdf9a",
+                    "on-tertiary-container": "#9fa6bf",
+                    "on-secondary-fixed-variant": "#5a4300",
+                    "tertiary-fixed": "#dae2fd",
+                    "secondary-container": "#fdc425",
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#e2bfb9",
+                    "primary-fixed": "#ffdad4",
+                    "outline": "#8e706c",
+                    "on-secondary-fixed": "#251a00",
+                    "surface-variant": "#d3e4fe",
+                    "on-primary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#785a00",
+                    "on-tertiary-fixed-variant": "#3f465c",
+                    "surface-container": "#e5eeff",
+                    "surface": "#f8f9ff",
+                    "on-surface": "#0b1c30",
+                    "inverse-on-surface": "#eaf1ff",
+                    "surface-tint": "#b22b1d",
+                    "on-surface-variant": "#5a413d",
+                    "on-primary-fixed-variant": "#8f0f07",
+                    "error-container": "#ffdad6",
+                    "surface-bright": "#f8f9ff",
+                    "tertiary-container": "#343c51",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#ffb4a8",
+                    "tertiary": "#1e263a",
+                    "surface-container-high": "#dce9ff",
+                    "tertiary-fixed-dim": "#bec6e0",
+                    "on-tertiary-fixed": "#131b2e",
+                    "inverse-primary": "#ffb4a8",
+                    "primary": "#570000",
+                    "secondary-fixed-dim": "#f7be1d",
+                    "on-background": "#0b1c30",
+                    "primary-container": "#800000",
+                    "surface-container-highest": "#d3e4fe",
+                    "surface-container-low": "#eff4ff",
+                    "inverse-surface": "#213145",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed": "#410000",
+                    "on-secondary-container": "#6d5200",
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#cbdbf5",
+                    "on-primary-container": "#ff8371",
+                    "background": "#f8f9ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-margin": "20px",
+                    "stack-gap": "16px",
+                    "grid-columns": "4",
+                    "section-padding": "24px",
+                    "inline-gap": "12px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "stat-lg": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "stat-lg": ["28px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-header {
+            backdrop-filter: blur(8px);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9ff;
+        }
+        .step-active {
+            width: 32px;
+            background-color: #570000;
+        }
+        .input-focus-ring:focus {
+            outline: none;
+            border-color: #570000;
+            box-shadow: 0 0 0 2px rgba(87, 0, 0, 0.1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- Top App Bar (As per JSON structure) -->
+<header class="bg-surface/90 dark:bg-surface-dim/90 font-headline-sm text-headline-sm docked full-width top-0 sticky backdrop-blur-md border-b border-outline-variant dark:border-outline shadow-sm flex justify-between items-center w-full px-5 py-3 z-50">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center overflow-hidden">
+<img alt="student_profile_photo" class="w-full h-full object-cover" data-alt="A professional high-resolution studio portrait of a confident Filipino student wearing a neat academic uniform. The background is a soft, out-of-focus university library with warm wooden shelves and natural sunlight streaming through. The lighting is high-key and optimistic, following a clean Corporate Modernism aesthetic with a premium, institutional feel. The global color palette uses deep maroon and soft whites to evoke prestige." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4fmMd9crNFFUAqOAIdv9czrPOncnnmCwhsJ-aYr7I_XIktt9X9UJPKV0EqsmDGYiwc6pthcl9IGUyHmsGaVB9KFb6TC1SfygwjrBXbEoZ7EKWN6ZppuMmRFAuq5QrIZJvkuNeia8DuJOpnbWam8-Nd6udgVuP5cvzY6g_siUT5Vz4DaSkClXXPj8-G3R2lfanAR1hbDDTHSUMgp5iAJoUJqSrgT9JYg8PwzUy7kMf6sXRkjnRlJlh_fdIS_33cZKXMwcqzZvgP6HW"/>
+</div>
+<span class="font-display-lg text-display-lg-mobile font-bold text-primary dark:text-primary-fixed-dim">IskoolarShip</span>
+</div>
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed-dim p-2 hover:bg-surface-variant/50 rounded-full transition-colors active:scale-95 duration-150" data-icon="notifications">notifications</button>
+</header>
+<main class="flex-grow flex flex-col px-container-margin py-stack-gap max-w-lg mx-auto w-full">
+<!-- Progress Stepper -->
+<div class="mt-4 mb-8">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Step 1 of 3</span>
+<span class="font-label-md text-label-md text-primary font-bold">Academic Data</span>
+</div>
+<div class="flex gap-2 h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-500 step-active"></div>
+<div class="h-full bg-outline-variant flex-grow rounded-full"></div>
+<div class="h-full bg-outline-variant flex-grow rounded-full"></div>
+</div>
+</div>
+<!-- Title & Intro -->
+<div class="mb-8">
+<h1 class="font-headline-md text-headline-md text-on-surface mb-2">Academic Qualifications</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Your grades and strand help us filter scholarships you're strictly eligible for.</p>
+</div>
+<!-- Form Section -->
+<div class="space-y-6">
+<!-- GPA Input -->
+<div class="relative">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1 ml-1" for="gwa">Current GWA / GPA</label>
+<div class="relative group">
+<input class="w-full bg-surface-container-lowest border-1.5 border-outline-variant rounded-xl px-4 py-3.5 font-body-lg text-body-lg text-on-surface input-focus-ring transition-all placeholder:text-on-surface-variant/40" id="gwa" placeholder="e.g. 1.25 or 94.5" step="0.01" type="number"/>
+<div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2 pointer-events-none">
+<span class="text-on-surface-variant font-body-lg">%</span>
+<span class="material-symbols-outlined text-on-surface-variant opacity-40" data-icon="percent">percent</span>
+</div>
+</div>
+<p class="mt-2 text-[11px] leading-relaxed text-on-surface-variant/70 italic px-1">Tip: Use the numerical format used by your current institution.</p>
+</div>
+<!-- SHS Strand Dropdown -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1 ml-1" for="strand">Senior High School Strand</label>
+<div class="relative">
+<select class="w-full appearance-none bg-surface-container-lowest border-1.5 border-outline-variant rounded-xl px-4 py-3.5 font-body-lg text-body-lg text-on-surface input-focus-ring transition-all" id="strand">
+<option disabled="" selected="" value="">Select your strand</option>
+<option value="stem">STEM (Science &amp; Tech)</option>
+<option value="abm">ABM (Accountancy &amp; Business)</option>
+<option value="humss">HUMSS (Humanities &amp; Social Sciences)</option>
+<option value="gas">GAS (General Academic)</option>
+<option value="tvl">TVL (Technical-Vocational-Livelihood)</option>
+<option value="arts">Arts &amp; Design</option>
+<option value="sports">Sports</option>
+</select>
+<div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+<span class="material-symbols-outlined text-primary" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Informational Card (Academic Excellence Design) -->
+<div class="p-5 bg-surface-container-low border border-outline-variant rounded-2xl flex gap-4 items-start shadow-sm mt-8">
+<div class="bg-primary/10 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary" data-icon="verified_user">verified_user</span>
+</div>
+<div>
+<h4 class="font-headline-sm text-[16px] text-primary mb-1">Precision Matching</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">We use academic metaphors and fluid grid models to ensure your data is matched with the highest-tier institutional partners.</p>
+</div>
+</div>
+</div>
+<!-- Spacer for FAB-like area -->
+<div class="h-24"></div>
+</main>
+<!-- Bottom Action Bar (Contextual Continue) -->
+<footer class="fixed bottom-0 left-0 w-full p-container-margin bg-surface/80 backdrop-blur-lg border-t border-outline-variant z-40">
+<div class="max-w-lg mx-auto">
+<button class="w-full bg-primary-container text-on-primary-container hover:bg-primary-container/90 py-4 rounded-xl font-headline-sm flex items-center justify-center gap-2 shadow-lg transition-all active:scale-95 duration-150">
+<span>Continue</span>
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</footer>
+<script>
+        // Simple Interaction: Change progress bar color on input
+        const inputs = document.querySelectorAll('input, select');
+        const progressBar = document.querySelector('.step-active');
+        
+        inputs.forEach(input => {
+            input.addEventListener('change', () => {
+                const filledCount = Array.from(inputs).filter(i => i.value !== "").length;
+                if(filledCount === 1) progressBar.style.width = '66%';
+                if(filledCount === 2) progressBar.style.width = '100%';
+            });
+        });
+    </script>
+</body></html>
