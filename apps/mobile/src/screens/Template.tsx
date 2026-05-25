@@ -6,7 +6,7 @@ import AcademicInformationScreen from './AcademicInformationScreen';
 import PersonalContextScreen from './PersonalContextScreen';
 import DocumentReadinessScreen from './DocumentReadinessScreen';
 
-export default function OnboardingScreen() {
+export default function Template() {
   const router = useRouter();
   const { completeOnboarding } = useProfile();
   const [step, setStep] = useState(1);
@@ -37,8 +37,9 @@ export default function OnboardingScreen() {
   if (step === 2) canProceed = isPersonalComplete;
 
   return (
+    
     <ScrollView contentContainerStyle={styles.container}>
-      {/* Header */}
+      {/* Header and Image */}
       <View style={styles.header}>
         <View style={styles.headerLeft}>
           <Image 
@@ -51,13 +52,18 @@ export default function OnboardingScreen() {
 
       {/* Progress Section */}
       <View style={styles.progressSection}>
+
+        {/* Progress Header */}
         <Text style={styles.sectionTitle}>Build Your Academic Profile</Text>
         <Text style={styles.sectionSubtitle}>Complete your profile to let our algorithm find the best scholarship matches for you.</Text>
         
+        {/* Progress Description */}
         <View style={styles.progressHeader}>
           <Text style={styles.progressLabel}>Setup Progress</Text>
           <Text style={styles.progressValue}>Step {step} of 3</Text>
         </View>
+
+        {/* Progress Bar */}
         <View style={styles.progressBarContainer}>
           <View style={[styles.progressSegment, isAcademicComplete ? styles.progressSegmentActive : null]} />
           <View style={[styles.progressSegment, isPersonalComplete ? styles.progressSegmentActive : null]} />
@@ -65,24 +71,28 @@ export default function OnboardingScreen() {
         </View>
       </View>
 
-      {/* Step Render */}
+      {/* Render Screens */}
+      {/* Ref: ../apps/mobile/src/screens/ */}
       {step === 1 && (
         <AcademicInformationScreen 
           gpa={gpa} setGpa={setGpa} strand={strand} setStrand={setStrand} 
         />
       )}
+      {/* Ref: ../apps/mobile/src/screens/AcademicInformationScreen.tsx */}
       
       {step === 2 && (
         <PersonalContextScreen 
           region={region} setRegion={setRegion} income={income} setIncome={setIncome} 
         />
       )}
+      {/* Ref: ../apps/mobile/src/screens/PersonalContextScreen.tsx */}
 
       {step === 3 && (
         <DocumentReadinessScreen 
           documents={documents} toggleDoc={toggleDoc} 
         />
       )}
+      {/* Ref: ../apps/mobile/src/screens/DocumentReadinessScreen.tsx */}
 
       {/* Next/Back Buttons */}
       <View style={styles.navButtonsContainer}>

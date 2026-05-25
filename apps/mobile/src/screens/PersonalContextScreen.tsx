@@ -34,10 +34,6 @@ const REGION_DISPLAY_MAP: Record<Region, string> = {
   BARMM: "BARMM"
 };
 
-// Get the list of UI options (excluding system keys like "All")
-const DB_REGIONS = REGIONS.filter(r => r !== 'All');
-const DISPLAY_OPTIONS = DB_REGIONS.map(r => REGION_DISPLAY_MAP[r]);
-
 // Dropdown: Display Mapping for Income Brackets
 const INCOME_DISPLAY_MAP: Record<IncomeBracket, string> = {
   1: 'Below ₱130k',
@@ -47,6 +43,11 @@ const INCOME_DISPLAY_MAP: Record<IncomeBracket, string> = {
   5: 'Above ₱1M',
 };
 
+// Get the list of UI options (excluding system keys like "All")
+const DB_REGIONS = REGIONS.filter(r => r !== 'All');
+const DISPLAY_OPTIONS = DB_REGIONS.map(r => REGION_DISPLAY_MAP[r]);
+
+// Get the list of UI options for income brackets
 const DB_INCOMES: IncomeBracket[] = [1, 2, 3, 4, 5];
 const INCOME_DISPLAY_OPTIONS = DB_INCOMES.map(i => INCOME_DISPLAY_MAP[i]);
 
@@ -93,6 +94,7 @@ export default function PersonalContextScreen({ region, setRegion, income, setIn
   );
 }
 
+// Styles for the Personal Context card and its elements
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#FFFFFF',
