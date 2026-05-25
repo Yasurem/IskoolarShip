@@ -1,44 +1,125 @@
-import React from 'react';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useProfile } from '../../src/context/ProfileContext';
+import { fetchCatalog } from '../../src/api/catalog';
+import type { Scholarship, StudentProfile, Gender, Strand, Course, YearLevel, Region, IncomeBracket, CatalogResponse } from '@iskoolarship/types';
+import { filterScholarships, compatibilityScoring, optimizeApplication } from '@iskoolarship/algorithms';
 
 type CardProps = {
-  title: string;
-  type: string;
-  match: string;
-  amount: string;
-  icon: keyof typeof MaterialIcons.glyphMap;
+  scholarship: Scholarship;
+  matchScore: number;
 };
 
-const ScholarshipCard = ({ title, type, match, amount, icon }: CardProps) => (
+// Helper icon picker
+const getProviderIcon = (type: string): keyof typeof MaterialIcons.glyphMap => {
+  if (type === 'government') return 'account-balance';
+  if (type === 'school') return 'school';
+  if (type === 'ngo') return 'volunteer-activism';
+  return 'domain';
+};
+
+// Format currency
+const formatMoney = (amount: number) => {
+  return new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP' }).format(amount);
+};
+
+const ScholarshipCard = ({ scholarship, matchScore }: CardProps) => (
   <TouchableOpacity style={styles.card} activeOpacity={0.7}>
     <View style={styles.cardHeader}>
       <View style={styles.cardHeaderLeft}>
         <View style={styles.iconContainer}>
-          <MaterialIcons name={icon} size={24} color="#570000" />
+          <MaterialIcons name={getProviderIcon(scholarship.providerType)} size={24} color="#570000" />
         </View>
         <View style={{ flex: 1, paddingRight: 8 }}>
-          <Text style={styles.cardTitle}>{title}</Text>
+          <Text style={styles.cardTitle}>{scholarship.name}</Text>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{type}</Text>
+            <Text style={styles.badgeText}>{scholarship.providerType.charAt(0).toUpperCase() + scholarship.providerType.slice(1)}</Text>
           </View>
         </View>
       </View>
       <View style={styles.matchBadge}>
         <MaterialIcons name="verified" size={16} color="#5a4300" />
-        <Text style={styles.matchText}>{match}</Text>
+        <Text style={styles.matchText}>{matchScore}% Match</Text>
       </View>
     </View>
     <View style={styles.cardFooter}>
-      <Text style={styles.footerLabel}>Potential Amount</Text>
-      <Text style={styles.footerAmount}>{amount}</Text>
+      <Text style={styles.footerLabel}>Estimated Value</Text>
+      <Text style={styles.footerAmount}>{formatMoney(scholarship.estimatedTotalValuePhp)}</Text>
     </View>
   </TouchableOpacity>
 );
 
 export default function MatchesScreen() {
   const insets = useSafeAreaInsets();
+  const { profile } = useProfile();
+  
+  const [catalog, setCatalog] = useState<CatalogResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  
+  // Mapped list of matched scholarships with their scores
+  const [matchedResults, setMatchedResults] = useState<{ scholarship: Scholarship; score: number }[]>([]);
+
+  useEffect(() => {
+    const loadAndMatch = async () => {
+      try {
+        setLoading(true);
+        // 1. Fetch live backend catalog
+        const fetchedCatalog = await fetchCatalog();
+        setCatalog(fetchedCatalog);
+        
+        if (!profile) {
+          setLoading(false);
+          return;
+        }
+
+        // 2. Map ProfileData (from onboarding) to StudentProfile (for algorithm)
+        // We use some default placeholders ("Any", "All") for fields the onboarding wizard didn't collect yet.
+        const availableDocs = Object.entries(profile.documents)
+          .filter(([_, hasIt]) => hasIt)
+          .map(([key, _]) => key);
+
+        const studentProfile: StudentProfile = {
+          gpa: parseFloat(profile.gpa) || 2.0,
+          strand: (profile.strand as Strand) || "All",
+          region: (profile.region as Region) || "All",
+          incomeBracket: (parseInt(profile.income) as IncomeBracket) || 3,
+          gender: "Any",
+          targetCourse: "All",
+          yearLevel: "All",
+          availableHours: 20,
+          availableDocumentKeys: availableDocs
+        };
+
+        // 3. Algorithm Step 1: Strict Filtering
+        const eligible = fetchedCatalog.scholarships.filter(s => filterScholarships(studentProfile, s));
+
+        // 4. Algorithm Step 2: Optimization / Selection 
+        const optimized = optimizeApplication(studentProfile, eligible);
+
+        // 5. Algorithm Step 3: Compatibility Scoring
+        const scored = optimized.map(s => {
+          const requiredDocs = fetchedCatalog.scholarshipRequiredDocuments.filter(d => d.scholarshipId === s.id);
+          const score = compatibilityScoring(studentProfile, s, requiredDocs);
+          return { scholarship: s, score };
+        });
+
+        // Simple default UI sort: highest score first
+        scored.sort((a, b) => b.score - a.score);
+        
+        setMatchedResults(scored);
+        
+      } catch (e: any) {
+        setError(e.message || "Failed to load scholarships.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    loadAndMatch();
+  }, [profile]);
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
@@ -59,32 +140,35 @@ export default function MatchesScreen() {
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.titleSection}>
           <Text style={styles.pageTitle}>Scholarship Matches</Text>
-          <Text style={styles.pageSubtitle}>Personalized recommendations based on your profile compatibility.</Text>
+          <Text style={styles.pageSubtitle}>Personalized recommendations calculated locally on your device.</Text>
         </View>
 
-        <View style={styles.cardsContainer}>
-          <ScholarshipCard 
-            title="DOST-SEI Merit Scholarship"
-            type="Government"
-            match="92% Match"
-            amount="₱40,000 / yr"
-            icon="account-balance"
-          />
-          <ScholarshipCard 
-            title="Ayala Foundation Grant"
-            type="Private"
-            match="88% Match"
-            amount="₱50,000 / yr"
-            icon="domain"
-          />
-          <ScholarshipCard 
-            title="University Alumni Fund"
-            type="Institutional"
-            match="75% Match"
-            amount="₱30,000 / yr"
-            icon="school"
-          />
-        </View>
+        {loading ? (
+          <View style={styles.centerContainer}>
+            <ActivityIndicator size="large" color="#570000" />
+            <Text style={styles.statusText}>Running matching algorithms...</Text>
+          </View>
+        ) : error ? (
+          <View style={styles.centerContainer}>
+            <MaterialIcons name="error-outline" size={48} color="#e53e3e" />
+            <Text style={styles.statusText}>{error}</Text>
+          </View>
+        ) : matchedResults.length === 0 ? (
+          <View style={styles.centerContainer}>
+            <MaterialIcons name="search-off" size={48} color="#718096" />
+            <Text style={styles.statusText}>No scholarships matched your profile.</Text>
+          </View>
+        ) : (
+          <View style={styles.cardsContainer}>
+            {matchedResults.map((result) => (
+              <ScholarshipCard 
+                key={result.scholarship.id}
+                scholarship={result.scholarship} 
+                matchScore={result.score} 
+              />
+            ))}
+          </View>
+        )}
       </ScrollView>
     </View>
   );
@@ -145,6 +229,17 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#5a413d',
   },
+  centerContainer: {
+    padding: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  statusText: {
+    marginTop: 16,
+    fontSize: 16,
+    color: '#4a5568',
+    textAlign: 'center',
+  },
   cardsContainer: {
     gap: 16,
   },
@@ -199,6 +294,7 @@ const styles = StyleSheet.create({
   badgeText: {
     fontSize: 12,
     color: '#5a413d',
+    fontWeight: '500',
   },
   matchBadge: {
     flexDirection: 'row',
